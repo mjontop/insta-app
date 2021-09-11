@@ -1,0 +1,31 @@
+.container {
+  color: red;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+  background: #e0e0e0;
+  box-shadow: 8px 8px 16px #949494, -8px -8px 16px #ffffff;
+}
+
+.main {
+  display: flex;
+  justify-content: space-between;
+  min-width: 40%;
+}
+
+.body {
+  position: fixed;
+  width: 100%;
+}
+.input {
+  outline: none !important;
+  padding-left: 0.8rem;
+  background-color: #cad5e2;
+  border-radius: 0.8rem;
+  border-color: transparent;
+}
+
+.input::placeholder {
+  text-align: center;
+}
+
