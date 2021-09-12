@@ -1,14 +1,30 @@
-import axios from "axios";
+import Axios from "../../utils/Axios";
 
 const getUsersEmail = async (username) => {
-  console.log(username);
   try {
-    const { data } = await axios.get(
-      `http://localhost:8001/api/user/getEmailfromUsername/${username}`
-    );
+    const { data } = await Axios.get(`/user/getEmailfromUsername/${username}`);
     return data;
   } catch (ex) {
     console.log("Error in Getting email");
+    return {
+      error: true,
+      data: null,
+    };
+  }
+};
+
+export const getUsersConnections = async (email) => {
+  try {
+    const { data } = await Axios.post(`/connections/getAllConnectionsCount`, {
+      email,
+    });
+    return data;
+  } catch (ex) {
+    console.log("Error in Getting Followers");
+    return {
+      error: true,
+      data: null,
+    };
   }
 };
 
