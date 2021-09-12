@@ -14,7 +14,6 @@
 }
 
 .body {
-  position: fixed;
   width: 100%;
 }
 .input {
@@ -28,4 +27,3 @@
 .input::placeholder {
   text-align: center;
 }
-

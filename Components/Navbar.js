@@ -1,7 +1,7 @@
 import React from "react";
 import navbar from "../styles/Navbar.module.css";
 import Link from "next/link";
-const Navbar = ({ children }) => {
+const Navbar = () => {
   return (
     <>
       <header className={navbar.body}>
@@ -26,7 +26,6 @@ const Navbar = ({ children }) => {
           </div>
         </div>
       </header>
-      {children}
     </>
   );
 };
