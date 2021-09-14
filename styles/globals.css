@@ -17,6 +17,33 @@ a {
   cursor: pointer;
 }
 
+.main {
+  padding: 2rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 40%;
+}
+
+#__next {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.centered-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.rounded {
+  border-radius: 50% !important;
+}
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 10px;

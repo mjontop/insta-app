@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+.posts {
+  display: flex;
+  flex: 4;
+  width: 100%;
+}
+
+.profilePic {
+  background-color: red;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.userStats {
+  background-color: green;
+  flex: 1.5;
+}

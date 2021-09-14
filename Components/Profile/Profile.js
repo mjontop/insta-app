@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import getUsersEmail, { getUsersConnections } from "./ProfileHelper";
+import style from "../../styles/Profile.module.css";
 
 const Profile = ({ username }) => {
   const [userEmail, setUserEmail] = useState({ data: null, isLoading: false });
@@ -33,11 +34,22 @@ const Profile = ({ username }) => {
     }
   }, [username]);
   return (
-    <>
-      <h1>Hey {username}</h1>
-      {JSON.stringify(userEmail)}
-      {JSON.stringify(userConnections)}
-    </>
+    <main className="main">
+      <div className={style.header}>
+        <div className={style.profilePic}>
+          <div className="centered-div">
+            <img
+              className="rounded"
+              width="150"
+              height="150"
+              src="https://i.stack.imgur.com/l60Hf.png"
+            />
+          </div>
+        </div>
+        <div className={style.userStats}></div>
+      </div>
+      <div className={style.posts}>dfasdfasdfa</div>
+    </main>
   );
 };
 
