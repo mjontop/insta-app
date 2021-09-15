@@ -3,38 +3,48 @@ import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
 
 import getUsersEmail, { getUsersConnections } from "./ProfileHelper";
 import style from "../../styles/Profile.module.css";
+import NOTFOUND from "../NotFound";
 
 const Profile = ({ username }) => {
-  const [userEmail, setUserEmail] = useState({ data: null, isLoading: false });
+  const [userData, setUserData] = useState({ data: {}, isLoading: false });
   const [userConnections, setUserConnections] = useState({
     followers: 0,
     following: 0,
     isLoading: false,
+    error: false,
   });
   useEffect(() => {
     if (!!username) {
-      setUserEmail({ ...userEmail, isLoading: true });
+      setUserData({ ...userData, isLoading: true });
       setUserConnections({ ...userConnections, isLoading: true });
       getUsersEmail(username).then(({ error, ...data }) => {
         if (!error) {
-          setUserEmail({ data, isLoading: false });
+          setUserData({ data, isLoading: false });
           getUsersConnections(data.email).then((data) => {
             if (!data.error) {
               setUserConnections({
                 followers: data.followers,
                 following: data.following,
                 isLoading: false,
+                error: false,
               });
             }
           });
           return;
         }
-        setUserEmail((prev) => ({ ...prev, isLoading: false }));
-        setUserConnections((prev) => ({ ...prev, isLoading: false }));
+        setUserData((prev) => ({ ...prev, isLoading: false }));
+        setUserConnections((prev) => ({
+          ...prev,
+          isLoading: false,
+          error: true,
+        }));
         return;
       });
     }
   }, [username]);
+  if (userConnections.error) {
+    return <NOTFOUND />;
+  }
   return (
     <main className="main">
       <div className={style.header}>
@@ -62,15 +72,19 @@ const Profile = ({ username }) => {
           </div>
           <div className={style.stats_row}>
             <div className="px-2">0 posts</div>
-            <div className="px-4 cursor-ptr">1 followers</div>
-            <div className="px-4 cursor-ptr">1 following</div>
+            <div className="px-4 cursor-ptr">
+              {userConnections.followers} followers
+            </div>
+            <div className="px-4 cursor-ptr">
+              {userConnections.following} following
+            </div>
           </div>
           <div className={style.name_bio_row}>
             <div className="px-2">
-              <p>Name</p>
+              <p>{userData.data.name}</p>
             </div>
             <div className="px-2">
-              <p>Bio</p>
+              <p>{userData.data.bio}</p>
             </div>
           </div>
         </div>
