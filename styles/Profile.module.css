@@ -4,9 +4,17 @@
   width: 100%;
 }
 .posts {
-  display: flex;
   flex: 10;
   width: 100%;
+  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.posts_Items {
+  min-width: 10rem;
+  min-height: 15.7rem;
+  border: 1px solid red;
 }
 
 .profilePic {

@@ -76,7 +76,11 @@ const Profile = ({ username }) => {
         </div>
       </div>
       <hr />
-      <div className={style.posts}>dfasdfasdfa</div>
+      <div className={style.posts}>
+        <div className={style.posts_Items}></div>
+        <div className={style.posts_Items}></div>
+        <div className={style.posts_Items}></div>
+      </div>
     </main>
   );
 };
