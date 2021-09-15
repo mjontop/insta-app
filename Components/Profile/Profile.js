@@ -39,7 +39,7 @@ const Profile = ({ username }) => {
         <div className={style.profilePic}>
           <div className="centered-div">
             <img
-              className="rounded"
+              className="circle"
               width="150"
               height="150"
               src="https://i.stack.imgur.com/l60Hf.png"

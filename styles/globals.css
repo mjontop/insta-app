@@ -28,6 +28,23 @@ a {
   width: 40%;
 }
 
+@media screen and (max-width: 1080px) {
+  .main {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 550px) {
+  .main {
+    width: 100%;
+  }
+}
+
 #__next {
   display: flex;
   flex-direction: column;
@@ -40,7 +57,7 @@ a {
   align-items: center;
   height: 100%;
 }
-.rounded {
+.circle {
   border-radius: 50% !important;
 }
 
