@@ -4,6 +4,7 @@ import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
 import getUsersEmail, { getUsersConnections } from "./ProfileHelper";
 import style from "../../styles/Profile.module.css";
 import NOTFOUND from "../NotFound";
+import FullPageLoader from "../FullPageLoader";
 
 const Profile = ({ username }) => {
   const [userData, setUserData] = useState({ data: {}, isLoading: false });
@@ -42,6 +43,9 @@ const Profile = ({ username }) => {
       });
     }
   }, [username]);
+  if (userConnections.isLoading || userData.isLoading) {
+    return <FullPageLoader />;
+  }
   if (userConnections.error) {
     return <NOTFOUND />;
   }
