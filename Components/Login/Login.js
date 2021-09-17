@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TextField } from "@material-ui/core";
 import style from "../../styles/SignIn.module.css";
 import Loader from "../Loader";
+import loginHelper from "./loginHelper";
 
 const SignIn = () => {
   const [userInfo, setUserInfo] = useState({
@@ -10,8 +11,27 @@ const SignIn = () => {
     isLoading: false,
   });
 
+  const [error, setError] = useState({
+    hasError: false,
+    message: "",
+  });
+
   const handleChange = (name) => (e) => {
     setUserInfo((prev) => ({ ...prev, [name]: e.target.value }));
+  };
+
+  const handleLogin = () => {
+    const { isLoading, ...user } = userInfo;
+    setUserInfo((prev) => ({ ...prev, isLoading: true }));
+    loginHelper(user).then((data) => {
+      if (data.error) {
+        setError({
+          hasError: true,
+          message: data.message,
+        });
+      }
+      setUserInfo((prev) => ({ ...prev, isLoading: false }));
+    });
   };
 
   return (
@@ -36,10 +56,15 @@ const SignIn = () => {
               type="password"
               onChange={handleChange("password")}
             />
+            {error.hasError && (
+              <p className="mt-5 mb-1 text-danger">{error.message}</p>
+            )}
           </div>
           <div className={style.login_btn}>
             {!userInfo.isLoading ? (
-              <button className="btn btn-secondary">Login</button>
+              <button className="btn btn-secondary" onClick={handleLogin}>
+                Login
+              </button>
             ) : (
               <Loader />
             )}
