@@ -68,6 +68,14 @@ hr {
   border-radius: 50% !important;
 }
 
+.btn {
+  background-color: #9f2bc1 !important;
+  border: none !important;
+  outline: none !important;
+  color: #fff;
+  border-radius: 0.5rem !important;
+}
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 10px;
