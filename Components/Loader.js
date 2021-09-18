@@ -2,10 +2,10 @@ import React from "react";
 import style from "../styles/Loader.module.css";
 const Loader = () => {
   return (
-    <div class={style.spinner}>
-      <div class={style.bounce1}></div>
-      <div class={style.bounce2}></div>
-      <div class={style.bounce3}></div>
+    <div className={style.spinner}>
+      <div className={style.bounce1}></div>
+      <div className={style.bounce2}></div>
+      <div className={style.bounce3}></div>
     </div>
   );
 };
