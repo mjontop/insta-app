@@ -5,12 +5,4 @@ const Axios = axios.create({
   // headers: { "X-Custom-Header": "foobar" },
 });
 
-export const parseJwt = (token) => {
-  try {
-    return JSON.parse(window.atob(token.split(".")[1]));
-  } catch (e) {
-    return null;
-  }
-};
-
 export default Axios;
