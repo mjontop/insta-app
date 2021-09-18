@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextField } from "@material-ui/core";
+import { useRouter } from "next/router";
+
 import style from "../../styles/SignIn.module.css";
 import Loader from "../Loader";
 import loginHelper from "./loginHelper";
+import parseJwt from "../../utils/validateJWT";
 
 const SignIn = () => {
+  const router = useRouter();
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
@@ -16,11 +20,31 @@ const SignIn = () => {
     message: "",
   });
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!!token) {
+      const decoded = parseJwt(token);
+      if (!decoded) {
+        localStorage.removeItem("token");
+        return;
+      }
+      router.replace("/");
+    }
+  }, []);
+
   const handleChange = (name) => (e) => {
+    setError({
+      ...error,
+      hasError: false,
+    });
     setUserInfo((prev) => ({ ...prev, [name]: e.target.value }));
   };
 
   const handleLogin = () => {
+    setError({
+      ...error,
+      hasError: false,
+    });
     const { isLoading, ...user } = userInfo;
     setUserInfo((prev) => ({ ...prev, isLoading: true }));
     loginHelper(user).then((data) => {
@@ -29,8 +53,11 @@ const SignIn = () => {
           hasError: true,
           message: data.message,
         });
+        setUserInfo((prev) => ({ ...prev, isLoading: false }));
+        return;
       }
-      setUserInfo((prev) => ({ ...prev, isLoading: false }));
+
+      router.replace("/");
     });
   };
 
