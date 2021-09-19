@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import navbar from "../styles/Navbar.module.css";
 import Link from "next/link";
+import parseJwt from "../utils/validateJWT";
 const Navbar = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+  });
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!!token) {
+      const decoded = parseJwt(token);
+      if (!!decoded) {
+        setUser({
+          username: decoded.username,
+          email: decoded.email,
+        });
+        setIsLoggedIn(true);
+        return;
+      }
+    }
+  }, []);
+
   return (
     <>
       <header className={navbar.body}>
@@ -15,14 +37,27 @@ const Navbar = () => {
             <div>
               <input className={navbar.input} placeholder="Search" />
             </div>
-            <Link href="/profile">
-              <div className="cursor-ptr">
-                <img
-                  src="https://img-premium.flaticon.com/png/512/552/premium/552848.png?token=exp=1631388468~hmac=b3061e9fc90e9afde8381e20fc0901bd"
-                  width="25"
-                />
-              </div>
-            </Link>
+            <div className="cursor-ptr">
+              {isLoggedIn ? (
+                <Link href={`/${user.username}`}>
+                  <img
+                    className="circle"
+                    width="25"
+                    height="25"
+                    src="https://i.stack.imgur.com/l60Hf.png"
+                  />
+                </Link>
+              ) : (
+                <div className="d-flex align-items-center">
+                  <Link href="/accounts/login">
+                    <button className="mx-2 btn">Login</button>
+                  </Link>
+                  <Link href="/accounts/register">
+                    <strong className="text-purple ">Register</strong>
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </header>

@@ -57,7 +57,7 @@ const SignIn = () => {
         return;
       }
 
-      router.replace("/");
+      window.location.replace("/");
     });
   };
 

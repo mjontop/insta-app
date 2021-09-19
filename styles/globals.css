@@ -71,8 +71,15 @@ hr {
   background-color: #9f2bc1 !important;
   border: none !important;
   outline: none !important;
-  color: #fff;
+  color: #fff !important;
   border-radius: 0.5rem !important;
+}
+.btn:focus{
+  outline: none;
+}
+
+.text-purple {
+  color: #9f2bc1;
 }
 
 /* Scrollbar Styling */
