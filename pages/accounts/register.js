@@ -1,7 +1,7 @@
 import React from "react";
-
-const Register = () => {
-  return "Register";
+import Register from "../../Components/Register/Register";
+const Signup = () => {
+  return <Register />;
 };
 
-export default Register;
+export default Signup;
