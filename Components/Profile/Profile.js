@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
 
 import getUsersEmail, { getUsersConnections } from "./ProfileHelper";
 import style from "../../styles/Profile.module.css";
 import NOTFOUND from "../NotFound";
 import FullPageLoader from "../FullPageLoader";
+import BasicPopover from "./BasicPopover";
 
 const Profile = ({ username }) => {
   const [userData, setUserData] = useState({ data: {}, isLoading: false });
@@ -43,6 +43,12 @@ const Profile = ({ username }) => {
       });
     }
   }, [username]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.replace("/");
+  };
+
   if (userConnections.isLoading || userData.isLoading) {
     return <FullPageLoader />;
   }
@@ -71,7 +77,7 @@ const Profile = ({ username }) => {
               <button className="btn btn-secondary py-0">Follow</button>
             </div>
             <div className="px-2 cursor-ptr">
-              <SettingsOutlinedIcon />
+              <BasicPopover onClick={handleLogout} />
             </div>
           </div>
           <div className={style.stats_row}>
