@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import navbar from "../styles/Navbar.module.css";
 import Link from "next/link";
-import parseJwt from "../utils/validateJWT";
+import getUserInfo from "./auth";
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({
@@ -10,18 +10,9 @@ const Navbar = () => {
   });
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!!token) {
-      const decoded = parseJwt(token);
-      if (!!decoded) {
-        setUser({
-          username: decoded.username,
-          email: decoded.email,
-        });
-        setIsLoggedIn(true);
-        return;
-      }
-    }
+    const userInfo = getUserInfo();
+    setIsLoggedIn(userInfo.isLoggedIn);
+    setUser(userInfo.user);
   }, []);
 
   return (

@@ -5,6 +5,7 @@ import style from "../../styles/Profile.module.css";
 import NOTFOUND from "../NotFound";
 import FullPageLoader from "../FullPageLoader";
 import BasicPopover from "./BasicPopover";
+import getUserInfo from "../auth";
 
 const Profile = ({ username }) => {
   const [userData, setUserData] = useState({ data: {}, isLoading: false });
@@ -14,8 +15,10 @@ const Profile = ({ username }) => {
     isLoading: false,
     error: false,
   });
+  const [isSameUser, setIsSameUser] = useState(false);
   useEffect(() => {
     if (!!username) {
+      setIsSameUser(getUserInfo().user.username === username);
       setUserData({ ...userData, isLoading: true });
       setUserConnections({ ...userConnections, isLoading: true });
       getUsersEmail(username).then(({ error, ...data }) => {
@@ -73,12 +76,15 @@ const Profile = ({ username }) => {
             <div className="px-2 fs-3">
               <strong>{username}</strong>
             </div>
-            <div className="px-2">
-              <button className="btn btn-secondary py-0">Follow</button>
-            </div>
-            <div className="px-2 cursor-ptr">
-              <BasicPopover onClick={handleLogout} />
-            </div>
+            {!isSameUser ? (
+              <div className="px-2">
+                <button className="btn btn-secondary py-0">Follow</button>
+              </div>
+            ) : (
+              <div className="px-2 cursor-ptr">
+                <BasicPopover onClick={handleLogout} />
+              </div>
+            )}
           </div>
           <div className={style.stats_row}>
             <div className="px-2">0 posts</div>
