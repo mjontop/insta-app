@@ -1,6 +1,6 @@
 import { useRouter } from "next/dist/client/router";
 import React from "react";
-import Profile from "../Components/Profile/Profile";
+import Profile from "../../Components/Profile/Profile";
 
 const UserProfile = () => {
   const router = useRouter();
