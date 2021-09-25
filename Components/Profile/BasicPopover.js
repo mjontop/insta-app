@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Popover } from "@material-ui/core";
 import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
 import ExitToAppRounded from "@material-ui/icons/ExitToAppRounded";
+import Link from "next/link";
 
-export default function BasicPopover({ onClick }) {
+export default function BasicPopover({ onClick, username }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -34,9 +35,16 @@ export default function BasicPopover({ onClick }) {
           horizontal: "left",
         }}
       >
-        <div className="px-3 p-1 d-flex cursor-ptr" onClick={onClick}>
-          <ExitToAppRounded />
-          <div>Log out</div>
+        <div className="d-flex cursor-ptr flex-column">
+          <Link href={`/${username}/editProfile/`}>
+            <span className="px-3 p-1 hoverEffect">Edit Profile</span>
+          </Link>
+          <div className="px-3 p-1 d-flex justify-content-between mt-1 hoverEffect">
+            <ExitToAppRounded />
+            <div className="mx-3" onClick={onClick}>
+              Log out
+            </div>
+          </div>
         </div>
       </Popover>
     </div>

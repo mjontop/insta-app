@@ -74,7 +74,7 @@ hr {
   color: #fff !important;
   border-radius: 0.5rem !important;
 }
-.btn:focus{
+.btn:focus {
   outline: none;
 }
 
@@ -97,4 +97,9 @@ hr {
   -webkit-border-radius: 10px;
   border-radius: 10px;
   background: #6d6d6d;
+}
+
+.hoverEffect:hover {
+  background-color: purple;
+  color: white;
 }

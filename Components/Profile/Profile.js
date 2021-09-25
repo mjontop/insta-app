@@ -82,7 +82,7 @@ const Profile = ({ username }) => {
               </div>
             ) : (
               <div className="px-2 cursor-ptr">
-                <BasicPopover onClick={handleLogout} />
+                <BasicPopover onClick={handleLogout} username={username} />
               </div>
             )}
           </div>

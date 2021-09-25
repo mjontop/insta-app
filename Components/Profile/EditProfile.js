@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import getUsersEmail, { getUsersConnections } from "./ProfileHelper";
-import style from "../../styles/Profile.module.css";
+import getUsersEmail from "./ProfileHelper";
 import NOTFOUND from "../NotFound";
 import FullPageLoader from "../FullPageLoader";
-import BasicPopover from "./BasicPopover";
 import getUserInfo from "../auth";
 
 const EditProfile = ({ username }) => {
