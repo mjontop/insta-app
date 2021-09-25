@@ -1,0 +1,43 @@
+.body {
+  height: 500px;
+  width: 100%;
+  border-radius: 2.5rem;
+  background: #fff;
+  box-shadow: 0 2px 15px rgb(0 0 0 / 13%) !important;
+  flex: 0.8;
+  display: flex;
+  overflow: hidden;
+  flex-direction: row;
+}
+
+@media only screen and (max-width: 768px) {
+  .body {
+    flex-direction: column;
+  }
+}
+.left {
+  flex: 1;
+  background: linear-gradient(#fd297a, #9424f0);
+}
+
+.right {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+.heading {
+  flex: 0.5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form_feilds {
+  flex: 4;
+}
+.save_button {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
