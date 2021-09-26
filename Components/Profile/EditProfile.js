@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { TextField } from "@material-ui/core";
 
 import getUsersEmail from "./ProfileHelper";
 import NOTFOUND from "../NotFound";
 import FullPageLoader from "../FullPageLoader";
 import getUserInfo from "../auth";
 import style from "../../styles/EditProfile.module.css";
+
 const EditProfile = ({ username }) => {
   const [userData, setUserData] = useState({ data: {}, isLoading: false });
 
@@ -47,9 +49,27 @@ const EditProfile = ({ username }) => {
           <div className={style.heading}>
             <strong className="fs-1">Edit Profile</strong>
           </div>
-          <div className={style.form_feilds}></div>
+          <div className={style.form_feilds}>
+            <TextField
+              label="Email"
+              variant="filled"
+              disabled={true}
+              value={userData.data.email}
+            />
+            <TextField
+              label="Name"
+              variant="filled"
+              value={userData.data.name}
+            />
+            <TextField
+              label="username"
+              variant="filled"
+              value={userData.data.username}
+            />
+            <TextField label="Bio" variant="filled" value={userData.data.bio} />
+          </div>
           <div className={style.save_button}>
-            <button className="btn">Save</button>
+            <button className="btn btn-blocl">Save</button>
           </div>
         </div>
       </div>

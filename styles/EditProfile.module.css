@@ -34,6 +34,13 @@
 
 .form_feilds {
   flex: 4;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}
+.form_feilds > div {
+  width: 70%;
 }
 .save_button {
   display: flex;

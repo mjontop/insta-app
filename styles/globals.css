@@ -82,6 +82,13 @@ hr {
   color: #9f2bc1;
 }
 
+.MuiFormControl-root > label {
+  color: #9f2bc1 !important;
+}
+.MuiFilledInput-underline:after {
+  border-bottom: 2px solid #9f2bc1 !important;
+}
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 10px;
