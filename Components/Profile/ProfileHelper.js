@@ -13,6 +13,19 @@ const getUsersEmail = async (username) => {
   }
 };
 
+export const updateUserProfile = async (updatedUser) => {
+  try {
+    const { data } = await Axios.post(`/user/updateProfile`, updatedUser);
+    return data;
+  } catch (ex) {
+    console.log("Error in Updating User", ex);
+    return {
+      error: true,
+      data: null,
+    };
+  }
+};
+
 export const getUsersConnections = async (email) => {
   try {
     const { data } = await Axios.post(`/connections/getAllConnectionsCount`, {
