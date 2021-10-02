@@ -35,6 +35,17 @@ const EditProfile = ({ username }) => {
     });
   };
 
+  const handleImageUpload = (e) => {
+    const file = document.querySelector("input[type=file]")["files"][0];
+    let base64String = "";
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      base64String = reader.result.replace("data:", "").replace(/^.+,/, "");
+      setUserData((prev) => ({ ...prev, imageBase64: base64String }));
+    };
+  };
+
   const handleSave = () => {
     const { bio, name, username } = userData.data;
     setIsLoading(true);
@@ -58,23 +69,35 @@ const EditProfile = ({ username }) => {
       <div className={style.body}>
         <div className={style.left}>
           <div className="centered-div ">
-            <div className={style.img_container}>
-              <div
-                className={"circle " + style.edit_profile_pic}
-                style={{
-                  backgroundImage: "url('https://i.stack.imgur.com/l60Hf.png')",
-                  backgroundSize: "200px 200px",
-                  width: "200px",
-                  height: "200px",
-                }}
-              >
-                <div className={style.middle}>
-                  <div className={style.text}>
-                    <CameraAlt />
+            <label htmlFor="img">
+              <div className={style.img_container}>
+                <div className="d-none">
+                  <input
+                    type="file"
+                    id="img"
+                    name="img"
+                    accept="image/*"
+                    onChange={(e) => handleImageUpload(e)}
+                  />
+                </div>
+                <div
+                  className={"circle " + style.edit_profile_pic}
+                  style={{
+                    backgroundImage:
+                      "url('https://i.stack.imgur.com/l60Hf.png')",
+                    backgroundSize: "200px 200px",
+                    width: "200px",
+                    height: "200px",
+                  }}
+                >
+                  <div className={style.middle}>
+                    <div className={style.text}>
+                      <CameraAlt />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </label>
           </div>
         </div>
         <div className={style.right}>
