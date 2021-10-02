@@ -48,25 +48,21 @@
   align-items: center;
   justify-content: center;
 }
-.edit_profile_pic {
-  opacity: 1;
-}
-/* .edit_profile_pic:hover {
-  opacity: 0.8;
-  cursor: pointer;
-} */
 
 .edit_profile_pic {
   opacity: 1;
   display: block;
-  width: 100%;
-  height: auto;
   transition: 0.5s ease;
   backface-visibility: hidden;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url("https://i.stack.imgur.com/l60Hf.png");
+  background-size: 200px 200px;
+  width: 200px;
+  height: 200px;
+  opacity: 1;
 }
 
 .middle {
@@ -93,4 +89,5 @@
   color: white;
   font-size: 16px;
   padding: 16px 32px;
+  color: white;
 }

@@ -42,19 +42,24 @@ const EditProfile = ({ username }) => {
     reader.readAsDataURL(file);
     reader.onload = function () {
       base64String = reader.result.replace("data:", "").replace(/^.+,/, "");
-      setUserData((prev) => ({ ...prev, imageBase64: base64String }));
+      setUserData((prev) => ({
+        ...prev,
+        data: { ...prev.data, imageBase64: base64String },
+      }));
     };
   };
 
   const handleSave = () => {
-    const { bio, name, username } = userData.data;
+    const { bio, name, username, imageBase64 } = userData.data;
     setIsLoading(true);
-    updateUserProfile({ bio, name, username }).then(({ error, token }) => {
-      if (!error) {
-        localStorage.setItem("token", token);
+    updateUserProfile({ bio, name, username, imageBase64 }).then(
+      ({ error, token }) => {
+        if (!error) {
+          localStorage.setItem("token", token);
+        }
+        setIsLoading(false);
       }
-      setIsLoading(false);
-    });
+    );
   };
 
   if (userData.isLoading) {
@@ -65,7 +70,6 @@ const EditProfile = ({ username }) => {
   }
   return (
     <main className="main">
-      {JSON.stringify(userData)}
       <div className={style.body}>
         <div className={style.left}>
           <div className="centered-div ">
@@ -82,13 +86,13 @@ const EditProfile = ({ username }) => {
                 </div>
                 <div
                   className={"circle " + style.edit_profile_pic}
-                  style={{
-                    backgroundImage:
-                      "url('https://i.stack.imgur.com/l60Hf.png')",
-                    backgroundSize: "200px 200px",
-                    width: "200px",
-                    height: "200px",
-                  }}
+                  style={
+                    userData.data.imageBase64
+                      ? {
+                          backgroundImage: `url(data:image/png;base64,${userData.data.imageBase64})`,
+                        }
+                      : {}
+                  }
                 >
                   <div className={style.middle}>
                     <div className={style.text}>
