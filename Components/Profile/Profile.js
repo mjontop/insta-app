@@ -67,7 +67,11 @@ const Profile = ({ username }) => {
               className="circle"
               width="150"
               height="150"
-              src="https://i.stack.imgur.com/l60Hf.png"
+              src={
+                userData.data.imageBase64 !== ""
+                  ? `data:image/png;base64,${userData.data.imageBase64}`
+                  : "https://i.stack.imgur.com/l60Hf.png"
+              }
             />
           </div>
         </div>
