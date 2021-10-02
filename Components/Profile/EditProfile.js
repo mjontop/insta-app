@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { TextField } from "@material-ui/core";
-
 import getUsersEmail, { updateUserProfile } from "./ProfileHelper";
 import NOTFOUND from "../NotFound";
 import FullPageLoader from "../FullPageLoader";
 import getUserInfo from "../auth";
 import style from "../../styles/EditProfile.module.css";
 import Loader from "../Loader";
+import { CameraAlt } from "@material-ui/icons";
 
 const EditProfile = ({ username }) => {
   const [userData, setUserData] = useState({ data: {}, isLoading: false });
@@ -54,15 +54,27 @@ const EditProfile = ({ username }) => {
   }
   return (
     <main className="main">
+      {JSON.stringify(userData)}
       <div className={style.body}>
         <div className={style.left}>
-          <div className="centered-div">
-            <img
-              className="circle"
-              width="200"
-              height="200"
-              src="https://i.stack.imgur.com/l60Hf.png"
-            />
+          <div className="centered-div ">
+            <div className={style.img_container}>
+              <div
+                className={"circle " + style.edit_profile_pic}
+                style={{
+                  backgroundImage: "url('https://i.stack.imgur.com/l60Hf.png')",
+                  backgroundSize: "200px 200px",
+                  width: "200px",
+                  height: "200px",
+                }}
+              >
+                <div className={style.middle}>
+                  <div className={style.text}>
+                    <CameraAlt />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className={style.right}>
