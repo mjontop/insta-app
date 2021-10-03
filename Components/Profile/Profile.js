@@ -91,20 +91,22 @@ const Profile = ({ username }) => {
             )}
           </div>
           <div className={style.stats_row}>
-            <div className="px-2">0 posts</div>
-            <div className="px-4 cursor-ptr">
-              {userConnections.followers} followers
+            <div className="px-2">
+              <b>0</b> posts
             </div>
             <div className="px-4 cursor-ptr">
-              {userConnections.following} following
+              <b>{userConnections.followers}</b> followers
+            </div>
+            <div className="px-4 cursor-ptr">
+              <b>{userConnections.following}</b> following
             </div>
           </div>
           <div className={style.name_bio_row}>
             <div className="px-2">
-              <p>{userData.data.name}</p>
+              <strong>{userData.data.name}</strong>
             </div>
-            <div className="px-2">
-              <p>{userData.data.bio}</p>
+            <div className="px-2 mt-1">
+              <p className="text-muted">{userData.data.bio}</p>
             </div>
           </div>
         </div>
