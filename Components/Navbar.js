@@ -3,6 +3,7 @@ import navbar from "../styles/Navbar.module.css";
 import Link from "next/link";
 import getUserInfo from "./auth";
 const Navbar = () => {
+  const [showShadow, setShowShadow] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({
     username: "",
@@ -10,15 +11,35 @@ const Navbar = () => {
   });
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const userInfo = getUserInfo();
     setIsLoggedIn(userInfo.isLoggedIn);
     setUser(userInfo.user);
+    window.addEventListener("scroll", handleScroll);
   }, []);
+
+  const handleScroll = () => {
+    if (window.scrollY > 10) {
+      setShowShadow(true);
+      return;
+    } else {
+      setShowShadow(false);
+    }
+  };
 
   return (
     <>
-      <header className={navbar.body}>
-        <div className={navbar.container}>
+      <header
+        className={navbar.body}
+        style={showShadow ? { position: "fixed" } : {}}
+      >
+        <div
+          className={
+            showShadow
+              ? `${navbar.container} ${navbar.shadow}`
+              : `${navbar.container}`
+          }
+        >
           <div className={navbar.main}>
             <Link href="/">
               <div className="cursor-ptr">
