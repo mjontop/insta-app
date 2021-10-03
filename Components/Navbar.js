@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import navbar from "../styles/Navbar.module.css";
 import Link from "next/link";
 import getUserInfo from "./auth";
+import { Autocomplete } from "@material-ui/lab/";
+import axios from "axios";
+import Axios from "../utils/Axios";
+import { TextField } from "@material-ui/core";
 const Navbar = () => {
   const [showShadow, setShowShadow] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -9,7 +13,12 @@ const Navbar = () => {
     username: "",
     email: "",
   });
+  const [searchResults, setSearchResults] = useState({
+    data: [],
+    isLoading: false,
+  });
 
+  let cancelToken;
   useEffect(() => {
     window.scrollTo(0, 0);
     const userInfo = getUserInfo();
@@ -25,6 +34,26 @@ const Navbar = () => {
     } else {
       setShowShadow(false);
     }
+  };
+
+  const handleSearch = async (e) => {
+    if (e.target.value.trim() === "") {
+      setSearchResults({ data: [], isLoading: false });
+      return;
+    }
+    if (typeof cancelToken != typeof undefined) {
+      cancelToken.cancel("closing prev call");
+    }
+
+    cancelToken = axios.CancelToken.source();
+
+    let value = e.target.value;
+    setSearchResults((prev) => ({ ...prev, isLoading: true }));
+    const { data } = await Axios.get(`user/searchUser/${value}`, {
+      cancelToken: cancelToken.token,
+    });
+    let searchResultObj = data.users.map((user) => ({ title: user, year: 1 }));
+    setSearchResults({ data: searchResultObj, isLoading: false });
   };
 
   return (
@@ -46,8 +75,36 @@ const Navbar = () => {
                 <i>HOME</i>
               </div>
             </Link>
-            <div>
-              <input className={navbar.input} placeholder="Search" />
+            <div style={{ width: "30%" }}>
+              <Autocomplete
+                freeSolo
+                id="free-solo-2-demo"
+                disableClearable
+                options={searchResults.data.map((option) => option.title)}
+                loading={searchResults.isLoading}
+                renderInput={(params) => (
+                  // <TextField
+                  //   {...params}
+                  //   label="Search input"
+                  //   InputProps={{
+                  //     ...params.InputProps,
+                  //     type: "search",
+                  //   }}
+                  // />
+                  <TextField
+                    className="inputRounded"
+                    placeholder="Search"
+                    variant="outlined"
+                    size="small"
+                    {...params}
+                    InputProps={{
+                      ...params.InputProps,
+                      type: "search",
+                    }}
+                    onChange={handleSearch}
+                  />
+                )}
+              />
             </div>
             <div className="cursor-ptr">
               {isLoggedIn ? (

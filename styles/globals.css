@@ -110,3 +110,17 @@ hr {
   background-color: purple;
   color: white;
 }
+.inputRounded .MuiOutlinedInput-root {
+  border-radius: 20px;
+  height: 35px;
+}
+
+.MuiOutlinedInput-root > input {
+  padding: 0px !important;
+  padding-left: 10px !important;
+}
+
+.MuiOutlinedInput-root > input:focus {
+  outline: none !important;
+  border: none !important;
+}
