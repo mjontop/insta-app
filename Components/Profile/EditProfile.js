@@ -6,13 +6,18 @@ import FullPageLoader from "../FullPageLoader";
 import getUserInfo from "../auth";
 import style from "../../styles/EditProfile.module.css";
 import Loader from "../Loader";
-import { CameraAlt } from "@material-ui/icons";
+import { CameraAlt, CheckCircleOutlineRounded } from "@material-ui/icons";
+import { useRouter } from "next/dist/client/router";
 
 const EditProfile = ({ username }) => {
+  const router = useRouter();
   const [userData, setUserData] = useState({ data: {}, isLoading: false });
   const [isSameUser, setIsSameUser] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [apiStatus, setApiStatus] = useState({
+    error: false,
+    completed: false,
+  });
   useEffect(() => {
     if (!!username) {
       setIsSameUser(getUserInfo().user.username === username);
@@ -56,6 +61,12 @@ const EditProfile = ({ username }) => {
       ({ error, token }) => {
         if (!error) {
           localStorage.setItem("token", token);
+          setApiStatus({ ...apiStatus, completed: true });
+          setTimeout(() => {
+            router.back();
+          }, 2000);
+        } else {
+          setApiStatus({ ...apiStatus, error: true });
         }
         setIsLoading(false);
       }
@@ -122,10 +133,12 @@ const EditProfile = ({ username }) => {
               onChange={(e) => handleChange(e, "name")}
             />
             <TextField
+              error={apiStatus.error}
               label="username"
               variant="filled"
               value={userData.data.username}
               onChange={(e) => handleChange(e, "username")}
+              helperText={apiStatus.error && "Username already taken"}
             />
             <TextField
               label="Bio"
@@ -134,6 +147,11 @@ const EditProfile = ({ username }) => {
               onChange={(e) => handleChange(e, "bio")}
             />
           </div>
+          {apiStatus.completed && (
+            <b className="text-center text-success">
+              Profile Update Successfully <CheckCircleOutlineRounded />
+            </b>
+          )}
           <div className={style.save_button}>
             {!isLoading ? (
               <button className="btn btn-blocl" onClick={handleSave}>
