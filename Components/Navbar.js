@@ -6,6 +6,7 @@ import { Autocomplete } from "@material-ui/lab/";
 import axios from "axios";
 import Axios from "../utils/Axios";
 import { TextField } from "@material-ui/core";
+import { useRouter } from "next/dist/client/router";
 const Navbar = () => {
   const [showShadow, setShowShadow] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -17,7 +18,7 @@ const Navbar = () => {
     data: [],
     isLoading: false,
   });
-
+  const router = useRouter();
   let cancelToken;
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -82,15 +83,10 @@ const Navbar = () => {
                 disableClearable
                 options={searchResults.data.map((option) => option.title)}
                 loading={searchResults.isLoading}
+                onChange={(event, value) => {
+                  router.push(`/${value}`)
+                }}
                 renderInput={(params) => (
-                  // <TextField
-                  //   {...params}
-                  //   label="Search input"
-                  //   InputProps={{
-                  //     ...params.InputProps,
-                  //     type: "search",
-                  //   }}
-                  // />
                   <TextField
                     className="inputRounded"
                     placeholder="Search"
