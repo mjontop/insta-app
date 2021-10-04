@@ -6,6 +6,7 @@ import NOTFOUND from "../NotFound";
 import FullPageLoader from "../FullPageLoader";
 import BasicPopover from "./BasicPopover";
 import getUserInfo from "../auth";
+import ConnetionsList from "./conntionsList";
 
 const Profile = ({ username }) => {
   const [userData, setUserData] = useState({ data: {}, isLoading: false });
@@ -95,10 +96,20 @@ const Profile = ({ username }) => {
               <b>0</b> posts
             </div>
             <div className="px-4 cursor-ptr">
-              <b>{userConnections.followers}</b> followers
+              <ConnetionsList
+                name="Followers"
+                list={["dfasdf", "dfasdf", "dfasdf"]}
+              >
+                <b>{userConnections.followers}</b> followers
+              </ConnetionsList>
             </div>
             <div className="px-4 cursor-ptr">
-              <b>{userConnections.following}</b> following
+              <ConnetionsList
+                name="Following"
+                list={["dfasdf", "dfasdf", "dfasdf"]}
+              >
+                <b>{userConnections.following}</b> following
+              </ConnetionsList>
             </div>
           </div>
           <div className={style.name_bio_row}>
