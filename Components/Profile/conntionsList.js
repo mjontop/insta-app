@@ -8,10 +8,12 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
-  border: "2px solid #9f2bc1",
+  outline: "none",
   boxShadow: 24,
   p: 4,
   height: "40vh",
+  borderRadius: "1rem",
+  padding: "5px 1rem",
 };
 
 const DisplayList = ({ name }) => (
@@ -34,9 +36,13 @@ export default function ConnetionsList({ name, children, list }) {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        style={{ outline: "none" }}
       >
         <Box sx={style}>
-          <strong className="fs-3 text-purple">{name}</strong>
+          <p className="text-center">
+            <strong className="fs-3 text-purple">{name}</strong>
+          </p>
+          <hr />
           <div className="mt-1">
             {list.map((l) => (
               <DisplayList name={l} />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import getUsersEmail, { getUsersConnections } from "./ProfileHelper";
+import getUsersEmail, { getUsersConnections } from "./helper/ProfileHelper";
 import style from "../../styles/Profile.module.css";
 import NOTFOUND from "../NotFound";
 import FullPageLoader from "../FullPageLoader";

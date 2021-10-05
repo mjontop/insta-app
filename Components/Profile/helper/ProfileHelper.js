@@ -1,4 +1,4 @@
-import Axios from "../../utils/Axios";
+import Axios from "../../../utils/Axios";
 
 const getUsersEmail = async (username) => {
   try {
