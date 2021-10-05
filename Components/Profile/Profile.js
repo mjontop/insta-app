@@ -96,17 +96,15 @@ const Profile = ({ username }) => {
               <b>0</b> posts
             </div>
             <div className="px-4 cursor-ptr">
-              <ConnetionsList
-                name="Followers"
-                list={["dfasdf", "dfasdf", "dfasdf"]}
-              >
+              <ConnetionsList name="Followers" email={userData.data.email}>
                 <b>{userConnections.followers}</b> followers
               </ConnetionsList>
             </div>
             <div className="px-4 cursor-ptr">
               <ConnetionsList
                 name="Following"
-                list={["dfasdf", "dfasdf", "dfasdf"]}
+                email={userData.data.email}
+                showFollwers={false}
               >
                 <b>{userConnections.following}</b> following
               </ConnetionsList>

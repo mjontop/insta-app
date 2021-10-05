@@ -1,5 +1,7 @@
+import React, { useEffect, useState } from "react";
 import { Box, Modal } from "@material-ui/core";
-import React from "react";
+import Link from "next/link";
+import getFollowers, { getFollowings } from "./helper/ConnctionsListhelper";
 
 const style = {
   position: "absolute",
@@ -18,15 +20,38 @@ const style = {
 
 const DisplayList = ({ name }) => (
   <div className="d-flex my-2 justify-content-between align-items-center">
-    <div>{name}</div>
+    <Link href={`/${name}`}>
+      <div className="cursor-ptr">{name}</div>
+    </Link>
     <button className="btn">follow</button>
   </div>
 );
 
-export default function ConnetionsList({ name, children, list }) {
+export default function ConnetionsList({
+  name,
+  children,
+  email,
+  showFollwers = true,
+}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [connetionsList, setConnectionsList] = useState([]);
+  useEffect(() => {
+    setConnectionsList([]);
+    if (open) getConnetionsList();
+  }, [open]);
+
+  const getConnetionsList = async () => {
+    if (showFollwers) {
+      const { data, error } = await getFollowers(email);
+      setConnectionsList(data);
+      return;
+    }
+    const { data, error } = await getFollowings(email);
+    setConnectionsList(data);
+    return;
+  };
 
   return (
     <div>
@@ -44,8 +69,8 @@ export default function ConnetionsList({ name, children, list }) {
           </p>
           <hr />
           <div className="mt-1">
-            {list.map((l) => (
-              <DisplayList name={l} />
+            {connetionsList.map((user) => (
+              <DisplayList name={user} />
             ))}
           </div>
         </Box>
