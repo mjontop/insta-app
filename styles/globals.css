@@ -73,6 +73,7 @@ hr {
   outline: none !important;
   color: #fff !important;
   border-radius: 0.5rem !important;
+  padding: 0.4rem 0.8rem;
 }
 .btn:focus {
   outline: none;

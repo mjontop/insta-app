@@ -8,6 +8,7 @@ import BasicPopover from "./BasicPopover";
 import getUserInfo from "../auth";
 import ConnetionsList from "./conntionsList";
 import { toggleFollowers } from "./helper/ConnctionsListhelper";
+import { Button } from "@material-ui/core";
 
 const Profile = ({ username }) => {
   const [userData, setUserData] = useState({ data: {}, isLoading: false });
@@ -18,6 +19,8 @@ const Profile = ({ username }) => {
     error: false,
   });
   const [isSameUser, setIsSameUser] = useState(false);
+  const [hasFollowed, setHasFollowed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     if (!!username) {
       setIsSameUser(getUserInfo().user.username === username);
@@ -54,12 +57,34 @@ const Profile = ({ username }) => {
     window.location.replace("/");
   };
 
+  const handleToggleFollow = async () => {
+    setIsLoading(true);
+    const { error, message } = await toggleFollowers(username);
+    if (!error) {
+      if (message === "Followed") {
+        setUserConnections({
+          ...userConnections,
+          followers: userConnections.followers + 1,
+        });
+        setHasFollowed(true);
+      } else {
+        setUserConnections({
+          ...userConnections,
+          followers: userConnections.followers - 1,
+        });
+        setHasFollowed(false);
+      }
+    }
+    setIsLoading(false);
+  };
+
   if (userConnections.isLoading || userData.isLoading) {
     return <FullPageLoader />;
   }
   if (userConnections.error) {
     return <NOTFOUND />;
   }
+
   return (
     <main className="main">
       <div className={style.header}>
@@ -84,12 +109,30 @@ const Profile = ({ username }) => {
             </div>
             {!isSameUser ? (
               <div className="px-2">
-                <button
-                  onClick={() => toggleFollowers(username)}
-                  className="btn btn-secondary py-0"
-                >
-                  Follow
-                </button>
+                {!hasFollowed ? (
+                  <button
+                    onClick={handleToggleFollow}
+                    className="btn btn-secondary "
+                  >
+                    Follow
+                    {isLoading && (
+                      <div
+                        className="spinner-border text-white spinner-border-sm mx-2"
+                        role="status"
+                      ></div>
+                    )}
+                  </button>
+                ) : (
+                  <Button onClick={handleToggleFollow} variant="outlined">
+                    Following
+                    {isLoading && (
+                      <div
+                        className="spinner-border text-purple spinner-border-sm mx-2"
+                        role="status"
+                      ></div>
+                    )}
+                  </Button>
+                )}
               </div>
             ) : (
               <div className="px-2 cursor-ptr">

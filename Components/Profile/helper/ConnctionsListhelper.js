@@ -38,10 +38,10 @@ export const getFollowings = async (email) => {
 
 export const toggleFollowers = async (username) => {
   try {
-    const { error } = await Axios.post(`/connections/toggleFollow`, {
+    const { data } = await Axios.post(`/connections/toggleFollow`, {
       username,
     });
-    return { error };
+    return { error: data.error, message: data.message };
   } catch (ex) {
     console.log("Error in Toggle Follow", ex);
     return { error: true };
