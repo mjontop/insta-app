@@ -7,6 +7,7 @@ import FullPageLoader from "../FullPageLoader";
 import BasicPopover from "./BasicPopover";
 import getUserInfo from "../auth";
 import ConnetionsList from "./conntionsList";
+import { toggleFollowers } from "./helper/ConnctionsListhelper";
 
 const Profile = ({ username }) => {
   const [userData, setUserData] = useState({ data: {}, isLoading: false });
@@ -83,7 +84,12 @@ const Profile = ({ username }) => {
             </div>
             {!isSameUser ? (
               <div className="px-2">
-                <button className="btn btn-secondary py-0">Follow</button>
+                <button
+                  onClick={() => toggleFollowers(username)}
+                  className="btn btn-secondary py-0"
+                >
+                  Follow
+                </button>
               </div>
             ) : (
               <div className="px-2 cursor-ptr">

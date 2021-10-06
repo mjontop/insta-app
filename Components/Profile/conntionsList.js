@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Box, Modal } from "@material-ui/core";
 import Link from "next/link";
-import getFollowers, { getFollowings } from "./helper/ConnctionsListhelper";
+import getFollowers, {
+  getFollowings,
+  toggleFollowers,
+} from "./helper/ConnctionsListhelper";
 
 const style = {
   position: "absolute",
@@ -23,7 +26,9 @@ const DisplayList = ({ name }) => (
     <Link href={`/${name}`}>
       <div className="cursor-ptr">{name}</div>
     </Link>
-    <button className="btn">follow</button>
+    <button className="btn" onClick={() => toggleFollowers(name)}>
+      follow
+    </button>
   </div>
 );
 
@@ -69,8 +74,8 @@ export default function ConnetionsList({
           </p>
           <hr />
           <div className="mt-1">
-            {connetionsList.map((user) => (
-              <DisplayList name={user} />
+            {connetionsList.map((user, index) => (
+              <DisplayList key={index} name={user} />
             ))}
           </div>
         </Box>
