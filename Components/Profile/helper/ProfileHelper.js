@@ -41,4 +41,20 @@ export const getUsersConnections = async (email) => {
   }
 };
 
+export const getFollowingStatus = async (username) => {
+  try {
+    const { data } = await Axios.post("connections/getFollowingStatus", {
+      username,
+    });
+    return {
+      follows: data.follows,
+    };
+  } catch (ex) {
+    console.log("Error in getting Following Status", ex);
+    return {
+      follows: false,
+    };
+  }
+};
+
 export default getUsersEmail;

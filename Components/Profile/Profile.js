@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import getUsersEmail, { getUsersConnections } from "./helper/ProfileHelper";
+import getUsersEmail, {
+  getFollowingStatus,
+  getUsersConnections,
+} from "./helper/ProfileHelper";
 import style from "../../styles/Profile.module.css";
 import NOTFOUND from "../NotFound";
 import FullPageLoader from "../FullPageLoader";
@@ -49,8 +52,14 @@ const Profile = ({ username }) => {
         }));
         return;
       });
+      checkFollowStatus();
     }
   }, [username]);
+
+  const checkFollowStatus = async () => {
+    const { follows } = await getFollowingStatus(username);
+    setHasFollowed(follows);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
