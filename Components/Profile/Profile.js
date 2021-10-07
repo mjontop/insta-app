@@ -10,7 +10,7 @@ import FullPageLoader from "../FullPageLoader";
 import BasicPopover from "./BasicPopover";
 import getUserInfo from "../auth";
 import ConnetionsList from "./conntionsList";
-import { toggleFollowers } from "./helper/ConnctionsListhelper";
+import { getFollowings, toggleFollowers } from "./helper/ConnctionsListhelper";
 import { Button } from "@material-ui/core";
 
 const Profile = ({ username }) => {
@@ -24,6 +24,7 @@ const Profile = ({ username }) => {
   const [isSameUser, setIsSameUser] = useState(false);
   const [hasFollowed, setHasFollowed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [followersList, setFollowersList] = useState([]);
   useEffect(() => {
     if (!!username) {
       setIsSameUser(getUserInfo().user.username === username);
@@ -53,6 +54,11 @@ const Profile = ({ username }) => {
         return;
       });
       checkFollowStatus();
+      if (getUserInfo().isLoggedIn) {
+        getFollowings(getUserInfo().user.email).then(({ data, error }) => {
+          setFollowersList(data);
+        });
+      }
     }
   }, [username]);
 
@@ -154,7 +160,11 @@ const Profile = ({ username }) => {
               <b>0</b> posts
             </div>
             <div className="px-4 cursor-ptr">
-              <ConnetionsList name="Followers" email={userData.data.email}>
+              <ConnetionsList
+                name="Followers"
+                email={userData.data.email}
+                followersList={followersList}
+              >
                 <b>{userConnections.followers}</b> followers
               </ConnetionsList>
             </div>
@@ -162,6 +172,7 @@ const Profile = ({ username }) => {
               <ConnetionsList
                 name="Following"
                 email={userData.data.email}
+                followersList={followersList}
                 showFollwers={false}
               >
                 <b>{userConnections.following}</b> following

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Modal } from "@material-ui/core";
+import { Box, Button, Modal } from "@material-ui/core";
 import Link from "next/link";
 import getFollowers, {
   getFollowings,
@@ -21,7 +21,14 @@ const style = {
   borderRadius: "1rem",
   padding: "5px 1rem",
 };
-const DisplayList = ({ name, currentUser }) => {
+const DisplayList = ({
+  name,
+  currentUser,
+  followersList,
+  handleToggleFollow,
+  isLoading,
+}) => {
+  const follows = followersList.includes(name);
   return (
     <div className="d-flex my-2 justify-content-between align-items-center">
       <Link href={`/${name}`}>
@@ -42,9 +49,32 @@ const DisplayList = ({ name, currentUser }) => {
       </Link>
       <div>
         {currentUser !== name && (
-          <button className="btn" onClick={() => toggleFollowers(name)}>
-            follow
-          </button>
+          <>
+            {!follows ? (
+              <button className="btn" onClick={() => handleToggleFollow(name)}>
+                follow
+                {isLoading && (
+                  <div
+                    className="spinner-border text-white spinner-border-sm mx-2"
+                    role="status"
+                  ></div>
+                )}
+              </button>
+            ) : (
+              <Button
+                variant="outlined"
+                onClick={() => handleToggleFollow(name)}
+              >
+                Following
+                {isLoading && (
+                  <div
+                    className="spinner-border text-purple spinner-border-sm mx-2"
+                    role="status"
+                  ></div>
+                )}
+              </Button>
+            )}
+          </>
         )}
       </div>
     </div>
@@ -55,6 +85,7 @@ export default function ConnetionsList({
   name,
   children,
   email,
+  followersList,
   showFollwers = true,
 }) {
   const [open, setOpen] = useState(false);
@@ -62,6 +93,10 @@ export default function ConnetionsList({
   const handleClose = () => setOpen(false);
   const [connetionsList, setConnectionsList] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [followersListState, setFollowersListState] = useState([
+    ...followersList,
+  ]);
   useEffect(() => {
     setConnectionsList([]);
     const { username } = parseJwt(localStorage.getItem("token"));
@@ -78,6 +113,21 @@ export default function ConnetionsList({
     const { data, error } = await getFollowings(email);
     setConnectionsList(data);
     return;
+  };
+
+  const handleToggleFollow = async (username) => {
+    setIsLoading(true);
+    const { error, message } = await toggleFollowers(username);
+    if (!error) {
+      if (message === "Followed") {
+        setFollowersListState((prev) => [...prev, username]);
+      } else {
+        setFollowersListState((prev) =>
+          prev.filter((uname) => uname !== username)
+        );
+      }
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -97,7 +147,14 @@ export default function ConnetionsList({
           <hr />
           <div className="mt-1">
             {connetionsList.map((user, index) => (
-              <DisplayList key={index} name={user} currentUser={currentUser} />
+              <DisplayList
+                key={index}
+                name={user}
+                currentUser={currentUser}
+                followersList={followersListState}
+                isLoading={isLoading}
+                handleToggleFollow={handleToggleFollow}
+              />
             ))}
           </div>
         </Box>
