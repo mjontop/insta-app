@@ -5,6 +5,7 @@ import getFollowers, {
   getFollowings,
   toggleFollowers,
 } from "./helper/ConnctionsListhelper";
+import parseJwt from "../../utils/validateJWT";
 
 const style = {
   position: "absolute",
@@ -20,17 +21,35 @@ const style = {
   borderRadius: "1rem",
   padding: "5px 1rem",
 };
-
-const DisplayList = ({ name }) => (
-  <div className="d-flex my-2 justify-content-between align-items-center">
-    <Link href={`/${name}`}>
-      <div className="cursor-ptr">{name}</div>
-    </Link>
-    <button className="btn" onClick={() => toggleFollowers(name)}>
-      follow
-    </button>
-  </div>
-);
+const DisplayList = ({ name, currentUser }) => {
+  return (
+    <div className="d-flex my-2 justify-content-between align-items-center">
+      <Link href={`/${name}`}>
+        <div
+          className="cursor-ptr"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <img
+            src="https://i.stack.imgur.com/l60Hf.png"
+            width="25"
+            className="circle"
+          />
+          <b className="mx-1">{name}</b>
+        </div>
+      </Link>
+      <div>
+        {currentUser !== name && (
+          <button className="btn" onClick={() => toggleFollowers(name)}>
+            follow
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default function ConnetionsList({
   name,
@@ -38,12 +57,15 @@ export default function ConnetionsList({
   email,
   showFollwers = true,
 }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [connetionsList, setConnectionsList] = useState([]);
+  const [currentUser, setCurrentUser] = useState("");
   useEffect(() => {
     setConnectionsList([]);
+    const { username } = parseJwt(localStorage.getItem("token"));
+    setCurrentUser(username);
     if (open) getConnetionsList();
   }, [open]);
 
@@ -75,7 +97,7 @@ export default function ConnetionsList({
           <hr />
           <div className="mt-1">
             {connetionsList.map((user, index) => (
-              <DisplayList key={index} name={user} />
+              <DisplayList key={index} name={user} currentUser={currentUser} />
             ))}
           </div>
         </Box>
