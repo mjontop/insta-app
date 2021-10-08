@@ -17,9 +17,10 @@ const style = {
   outline: "none",
   boxShadow: 24,
   p: 4,
-  height: "40vh",
+  height: "400px",
   borderRadius: "1rem",
   padding: "5px 1rem",
+  overflowY: "scroll",
 };
 const DisplayList = ({
   name,
@@ -149,7 +150,7 @@ export default function ConnetionsList({
         aria-describedby="modal-modal-description"
         style={{ outline: "none" }}
       >
-        <Box sx={style}>
+        <Box sx={style} className="hideScrollbar">
           <p className="text-center">
             <strong className="fs-3 text-purple">{name}</strong>
           </p>
