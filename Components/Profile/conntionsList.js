@@ -86,17 +86,25 @@ export default function ConnetionsList({
   children,
   email,
   followersList,
-  showFollwers = true,
+  showFollowers = true,
 }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    if (followingUpdated) {
+      const event = new Event("updateFollowerCount");
+      window.dispatchEvent(event);
+    }
+    setOpen(false);
+  };
   const [connetionsList, setConnectionsList] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [followersListState, setFollowersListState] = useState([
     ...followersList,
   ]);
+  const [followingUpdated, setFollowingUpdated] = useState(false);
+
   useEffect(() => {
     setConnectionsList([]);
     const { username } = parseJwt(localStorage.getItem("token"));
@@ -105,7 +113,7 @@ export default function ConnetionsList({
   }, [open]);
 
   const getConnetionsList = async () => {
-    if (showFollwers) {
+    if (showFollowers) {
       const { data, error } = await getFollowers(email);
       setConnectionsList(data);
       return;
@@ -122,6 +130,7 @@ export default function ConnetionsList({
       if (message === "Followed") {
         setFollowersListState((prev) => [...prev, username]);
       } else {
+        setFollowingUpdated(true);
         setFollowersListState((prev) =>
           prev.filter((uname) => uname !== username)
         );

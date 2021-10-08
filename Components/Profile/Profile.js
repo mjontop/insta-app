@@ -54,9 +54,25 @@ const Profile = ({ username }) => {
         return;
       });
       checkFollowStatus();
-      if (getUserInfo().isLoggedIn) {
+      const { isLoggedIn } = getUserInfo();
+      if (isLoggedIn) {
         getFollowings(getUserInfo().user.email).then(({ data, error }) => {
           setFollowersList(data);
+        });
+      }
+      if (isLoggedIn) {
+        window.addEventListener("updateFollowerCount", () => {
+          const email = getUserInfo().user.email;
+          getUsersConnections(email).then((data) => {
+            if (!data.error) {
+              setUserConnections({
+                followers: data.followers,
+                following: data.following,
+                isLoading: false,
+                error: false,
+              });
+            }
+          });
         });
       }
     }
@@ -173,7 +189,7 @@ const Profile = ({ username }) => {
                 name="Following"
                 email={userData.data.email}
                 followersList={followersList}
-                showFollwers={false}
+                showFollowers={false}
               >
                 <b>{userConnections.following}</b> following
               </ConnetionsList>
