@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TextField } from "@material-ui/core";
-import getUsersEmail, { updateUserProfile } from "./ProfileHelper";
+import getUsersEmail, { updateUserProfile } from "./helper/ProfileHelper";
 import NOTFOUND from "../NotFound";
 import FullPageLoader from "../FullPageLoader";
 import getUserInfo from "../auth";
