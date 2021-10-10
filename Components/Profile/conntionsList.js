@@ -6,6 +6,7 @@ import getFollowers, {
   toggleFollowers,
 } from "./helper/ConnctionsListhelper";
 import parseJwt from "../../utils/validateJWT";
+import WindowsLoader from "../../utils/windowsLoader";
 
 const style = {
   position: "absolute",
@@ -89,6 +90,7 @@ export default function ConnetionsList({
   followersList,
   showFollowers = true,
 }) {
+  const [isLoadingList, setIsLoadingList] = useState(false);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -114,13 +116,16 @@ export default function ConnetionsList({
   }, [open]);
 
   const getConnetionsList = async () => {
+    setIsLoadingList(true);
     if (showFollowers) {
       const { data, error } = await getFollowers(email);
       setConnectionsList(data);
+      setIsLoadingList(false);
       return;
     }
     const { data, error } = await getFollowings(email);
     setConnectionsList(data);
+    setIsLoadingList(false);
     return;
   };
 
@@ -155,18 +160,24 @@ export default function ConnetionsList({
             <strong className="fs-3 text-purple">{name}</strong>
           </p>
           <hr />
-          <div className="mt-1">
-            {connetionsList.map((user, index) => (
-              <DisplayList
-                key={index}
-                name={user}
-                currentUser={currentUser}
-                followersList={followersListState}
-                isLoading={isLoading}
-                handleToggleFollow={handleToggleFollow}
-              />
-            ))}
-          </div>
+          {!isLoadingList ? (
+            <>
+              <div className="mt-1">
+                {connetionsList.map((user, index) => (
+                  <DisplayList
+                    key={index}
+                    name={user}
+                    currentUser={currentUser}
+                    followersList={followersListState}
+                    isLoading={isLoading}
+                    handleToggleFollow={handleToggleFollow}
+                  />
+                ))}
+              </div>
+            </>
+          ) : (
+            <WindowsLoader />
+          )}
         </Box>
       </Modal>
     </div>

@@ -13,7 +13,7 @@ const getFollowers = async (email) => {
     console.log("Error in Getting Followers", ex);
     return {
       error: true,
-      data: ex.response.data,
+      data: [],
     };
   }
 };
@@ -31,7 +31,7 @@ export const getFollowings = async (email) => {
     console.log("Error in Getting Followers", ex);
     return {
       error: true,
-      data: ex.response.data,
+      data: [],
     };
   }
 };
