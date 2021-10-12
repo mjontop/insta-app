@@ -6,7 +6,7 @@ import getFollowers, {
   toggleFollowers,
 } from "./helper/ConnctionsListhelper";
 import parseJwt from "../../utils/validateJWT";
-import WindowsLoader from "../../utils/windowsLoader";
+import PlaceHoldLoader from "../../utils/windowsLoader";
 
 const style = {
   position: "absolute",
@@ -89,6 +89,7 @@ export default function ConnetionsList({
   email,
   followersList,
   showFollowers = true,
+  loaderCount,
 }) {
   const [isLoadingList, setIsLoadingList] = useState(false);
   const [open, setOpen] = useState(false);
@@ -176,7 +177,7 @@ export default function ConnetionsList({
               </div>
             </>
           ) : (
-            <WindowsLoader />
+            [...Array(loaderCount).keys()].map(() => <PlaceHoldLoader />)
           )}
         </Box>
       </Modal>

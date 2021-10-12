@@ -180,6 +180,7 @@ const Profile = ({ username }) => {
                 name="Followers"
                 email={userData.data.email}
                 followersList={followersList}
+                loaderCount={userConnections.followers}
               >
                 <b>{userConnections.followers}</b> followers
               </ConnetionsList>
@@ -189,6 +190,7 @@ const Profile = ({ username }) => {
                 name="Following"
                 email={userData.data.email}
                 followersList={followersList}
+                loaderCount={userConnections.following}
                 showFollowers={false}
               >
                 <b>{userConnections.following}</b> following
