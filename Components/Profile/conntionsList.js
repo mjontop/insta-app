@@ -214,9 +214,9 @@ export default function ConnetionsList({
                   </div>
                 </>
               ) : (
-                [...Array(loaderCount + 1).keys()].map((val, index) => (
-                  <PlaceHoldLoader key={index} />
-                ))
+                [...Array(!loaderCount ? 1 : loaderCount).keys()].map(
+                  (val, index) => <PlaceHoldLoader key={index} />
+                )
               )}
             </>
           )}
