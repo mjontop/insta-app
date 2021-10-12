@@ -7,7 +7,8 @@ import getFollowers, {
 } from "./helper/ConnctionsListhelper";
 import parseJwt from "../../utils/validateJWT";
 import PlaceHoldLoader from "../../utils/windowsLoader";
-
+import { CloseRounded } from "@material-ui/icons";
+import classes from "../../styles/ConnectionsList.module.css";
 const style = {
   position: "absolute",
   top: "50%",
@@ -108,11 +109,13 @@ export default function ConnetionsList({
     ...followersList,
   ]);
   const [followingUpdated, setFollowingUpdated] = useState(false);
+  const [isListEmpty, setIsListEmpty] = useState(false);
 
   useEffect(() => {
     setConnectionsList([]);
     const { username } = parseJwt(localStorage.getItem("token"));
     setCurrentUser(username);
+    setIsListEmpty(false);
     if (open) getConnetionsList();
   }, [open]);
 
@@ -121,11 +124,13 @@ export default function ConnetionsList({
     if (showFollowers) {
       const { data, error } = await getFollowers(email);
       setConnectionsList(data);
+      if (data.length === 0) setIsListEmpty(true);
       setIsLoadingList(false);
       return;
     }
     const { data, error } = await getFollowings(email);
     setConnectionsList(data);
+    if (data.length === 0) setIsListEmpty(true);
     setIsLoadingList(false);
     return;
   };
@@ -157,27 +162,63 @@ export default function ConnetionsList({
         style={{ outline: "none" }}
       >
         <Box sx={style} className="hideScrollbar">
-          <p className="text-center">
-            <strong className="fs-3 text-purple">{name}</strong>
-          </p>
+          <div className={classes.header}>
+            <p className="text-center mb-0" style={{ flex: 10 }}>
+              <strong className="fs-3 text-purple">{name}</strong>
+            </p>
+            <CloseRounded
+              className={classes.enlargedSvg}
+              onClick={handleClose}
+            />
+          </div>
           <hr />
-          {!isLoadingList ? (
+          {isListEmpty ? (
             <>
-              <div className="mt-1">
-                {connetionsList.map((user, index) => (
-                  <DisplayList
-                    key={index}
-                    name={user}
-                    currentUser={currentUser}
-                    followersList={followersListState}
-                    isLoading={isLoading}
-                    handleToggleFollow={handleToggleFollow}
-                  />
-                ))}
-              </div>
+              {!showFollowers ? (
+                <>
+                  <p className="fs-2 mx-3">
+                    <strong>You aren’t following anyone yet</strong>
+                  </p>
+                  <p className="mx-3">
+                    <small>When you do, they’ll be listed here.</small>
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="fs-2 mx-3">
+                    <strong>You don’t have any followers yet</strong>
+                  </p>
+                  <p className="mx-3">
+                    <small>
+                      When someone follows you, you’ll see them here.
+                    </small>
+                  </p>
+                </>
+              )}
             </>
           ) : (
-            [...Array(loaderCount).keys()].map(() => <PlaceHoldLoader />)
+            <>
+              {!isLoadingList ? (
+                <>
+                  <div className="mt-1">
+                    {connetionsList.map((user, index) => (
+                      <DisplayList
+                        key={index}
+                        name={user}
+                        currentUser={currentUser}
+                        followersList={followersListState}
+                        isLoading={isLoading}
+                        handleToggleFollow={handleToggleFollow}
+                      />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                [...Array(loaderCount + 1).keys()].map((val, index) => (
+                  <PlaceHoldLoader key={index} />
+                ))
+              )}
+            </>
           )}
         </Box>
       </Modal>
