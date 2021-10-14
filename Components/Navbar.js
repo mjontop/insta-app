@@ -7,6 +7,7 @@ import axios from "axios";
 import Axios from "../utils/Axios";
 import { TextField } from "@material-ui/core";
 import { useRouter } from "next/dist/client/router";
+import logo from "../assets/logo.svg";
 const Navbar = () => {
   const [showShadow, setShowShadow] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -73,7 +74,7 @@ const Navbar = () => {
           <div className={navbar.main}>
             <Link href="/">
               <div className="cursor-ptr">
-                <i>HOME</i>
+                <img src={logo.src} width="150" />
               </div>
             </Link>
             <div style={{ width: "30%" }}>
@@ -84,7 +85,7 @@ const Navbar = () => {
                 options={searchResults.data.map((option) => option.title)}
                 loading={searchResults.isLoading}
                 onChange={(event, value) => {
-                  router.push(`/${value}`)
+                  router.push(`/${value}`);
                 }}
                 renderInput={(params) => (
                   <TextField
