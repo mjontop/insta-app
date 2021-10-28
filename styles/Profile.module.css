@@ -7,6 +7,13 @@
   flex: 10;
   width: 100%;
 }
+.new_posts {
+  flex: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 
 .posts_Items {
   min-width: 10rem;

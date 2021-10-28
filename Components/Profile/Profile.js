@@ -12,6 +12,8 @@ import getUserInfo from "../auth";
 import ConnetionsList from "./conntionsList";
 import { getFollowings, toggleFollowers } from "./helper/ConnctionsListhelper";
 import { Button, Tab, Tabs, Box } from "@material-ui/core";
+import { ArrowForwardIosRounded } from "@material-ui/icons";
+import { useRouter } from "next/dist/client/router";
 
 const Profile = ({ username }) => {
   const [userData, setUserData] = useState({ data: {}, isLoading: false });
@@ -26,6 +28,7 @@ const Profile = ({ username }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [followersList, setFollowersList] = useState([]);
   const [currentTab, setCurrentTab] = useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     if (!!username) {
@@ -109,10 +112,6 @@ const Profile = ({ username }) => {
       }
     }
     setIsLoading(false);
-  };
-
-  const handleTabSwitch = (event, newValue) => {
-    setCurrentTab(newValue);
   };
 
   if (userConnections.isLoading || userData.isLoading) {
@@ -225,7 +224,7 @@ const Profile = ({ username }) => {
         >
           <Tabs
             value={currentTab}
-            onChange={handleTabSwitch}
+            onChange={(e, val) => setCurrentTab(val)}
             aria-label="basic tabs example"
           >
             <Tab label="All Posts" />
@@ -239,7 +238,19 @@ const Profile = ({ username }) => {
           <div className="col-12 col-md-4"></div>
         </div>
       )}
-      {currentTab === 1 && <div className={style.posts}>Create Post</div>}
+      {currentTab === 1 && (
+        <div className={style.new_posts}>
+          <Button
+            variant="outlined"
+            size="large"
+            onClick={() => {
+              router.push("/posts/upload");
+            }}
+          >
+            Create A New Post <ArrowForwardIosRounded />
+          </Button>
+        </div>
+      )}
     </main>
   );
 };
