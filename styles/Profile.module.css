@@ -6,9 +6,6 @@
 .posts {
   flex: 10;
   width: 100%;
-  flex-wrap: wrap;
-  display: grid;
-  grid-template-columns: auto auto auto;
 }
 
 .posts_Items {

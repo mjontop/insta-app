@@ -1,0 +1,10 @@
+.body {
+  width: 100%;
+  border-radius: 2.5rem;
+  background: #fff;
+  box-shadow: 0 2px 15px rgb(0 0 0 / 13%) !important;
+  flex: 0.9;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+}

@@ -136,3 +136,9 @@ hr {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+button:focus {
+  outline: none !important;
+}
+.PrivateTabIndicator-colorSecondary-9{
+  background-color: #9f2bc1 !important;
+}

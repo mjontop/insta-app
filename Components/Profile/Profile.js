@@ -11,7 +11,7 @@ import BasicPopover from "./BasicPopover";
 import getUserInfo from "../auth";
 import ConnetionsList from "./conntionsList";
 import { getFollowings, toggleFollowers } from "./helper/ConnctionsListhelper";
-import { Button } from "@material-ui/core";
+import { Button, Tab, Tabs, Box } from "@material-ui/core";
 
 const Profile = ({ username }) => {
   const [userData, setUserData] = useState({ data: {}, isLoading: false });
@@ -25,6 +25,8 @@ const Profile = ({ username }) => {
   const [hasFollowed, setHasFollowed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [followersList, setFollowersList] = useState([]);
+  const [currentTab, setCurrentTab] = useState(0);
+
   useEffect(() => {
     if (!!username) {
       setIsSameUser(getUserInfo().user.username === username);
@@ -107,6 +109,10 @@ const Profile = ({ username }) => {
       }
     }
     setIsLoading(false);
+  };
+
+  const handleTabSwitch = (event, newValue) => {
+    setCurrentTab(newValue);
   };
 
   if (userConnections.isLoading || userData.isLoading) {
@@ -207,12 +213,33 @@ const Profile = ({ username }) => {
           </div>
         </div>
       </div>
-      <hr />
-      <div className={style.posts}>
-        <div className={style.posts_Items}></div>
-        <div className={style.posts_Items}></div>
-        <div className={style.posts_Items}></div>
+      <div style={{ flex: "0.1" }}>
+        <Box
+          style={{
+            outline: "none !important",
+            borderBottom: "2px solid gray",
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+          }}
+        >
+          <Tabs
+            value={currentTab}
+            onChange={handleTabSwitch}
+            aria-label="basic tabs example"
+          >
+            <Tab label="All Posts" />
+            <Tab label="Create A Post" />
+          </Tabs>
+        </Box>
       </div>
+      {currentTab === 0 && (
+        <div className={`${style.posts} row`}>
+          <div className="col-12 col-md-4"></div>
+          <div className="col-12 col-md-4"></div>
+        </div>
+      )}
+      {currentTab === 1 && <div className={style.posts}>Create Post</div>}
     </main>
   );
 };
