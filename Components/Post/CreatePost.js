@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BackupRounded, ClearRounded } from "@material-ui/icons";
 import { Button, Input } from "@material-ui/core";
 import style from "../../styles/CreatePost.module.css";
-const CreatePost = () => {
+const CreatePost = ({ profilePic }) => {
   const [imageUploaded, setImgUploaded] = useState(null);
   const [caption, setCaption] = useState("");
   const handleImageUpload = (e) => {
@@ -56,7 +56,11 @@ const CreatePost = () => {
           <div className={style.footer}>
             <div className={style.userImage}>
               <img
-                src="https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                src={
+                  profilePic === ""
+                    ? "https://i.stack.imgur.com/l60Hf.png"
+                    : `data:image/png;base64,${profilePic}`
+                }
                 height="150"
                 width="150"
               />

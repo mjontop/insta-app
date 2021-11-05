@@ -8,7 +8,7 @@ import Axios from "../utils/Axios";
 import { TextField } from "@material-ui/core";
 import { useRouter } from "next/dist/client/router";
 import logo from "../assets/logo.svg";
-const Navbar = () => {
+const Navbar = ({ profilePic }) => {
   const [showShadow, setShowShadow] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({
@@ -108,9 +108,13 @@ const Navbar = () => {
                 <Link href={`/${user.username}`}>
                   <img
                     className="circle"
-                    width="25"
-                    height="25"
-                    src="https://i.stack.imgur.com/l60Hf.png"
+                    width="35"
+                    height="35"
+                    src={
+                      profilePic === ""
+                        ? "https://i.stack.imgur.com/l60Hf.png"
+                        : `data:image/png;base64,${profilePic}`
+                    }
                   />
                 </Link>
               ) : (
