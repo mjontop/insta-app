@@ -12,7 +12,7 @@
 
 .heading {
   flex-direction: column;
-  flex: 1;
+  flex: 0.4;
   display: flex;
   justify-content: center;
 }
@@ -22,18 +22,58 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  flex: 2;
+  flex: 5;
 }
 
 .footer {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex: 4;
+  flex: 1;
+  align-items: flex-start;
 }
 .image {
   display: flex;
   flex-direction: column;
-  align-items: end;
+  align-items: flex-end;
+  justify-content: space-evenly;
+}
+
+.image > img {
+  max-width: 700px !important;
+}
+
+.userImage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userImage > img {
+  border-radius: 50%;
+}
+
+.captions {
+  flex: 3 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 0 1rem;
+}
+
+.captions > .captionText {
+  font-size: 1.4rem;
+  width: 100%;
+  height: 120px;
+  border-radius: 0.8rem;
+  padding: 0.8rem;
+  resize: none;
+  border: none !important;
+  outline: #9f2bc1 !important;
+  background-color: #9f2bc140;
+  color: #000;
+  font-weight: 600;
+}
+.captions > .captionText :focus-visible {
+  outline: #9f2bc1 !important;
+  /* border-color: #9f2bc1 !important; */
 }

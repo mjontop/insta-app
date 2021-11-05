@@ -30,8 +30,8 @@ hr {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 40%;
   min-height: calc(100vh - 55px);
+  min-width: max(40%, 750px);
 }
 
 @media screen and (max-width: 1080px) {
@@ -139,6 +139,6 @@ hr {
 button:focus {
   outline: none !important;
 }
-.PrivateTabIndicator-colorSecondary-9{
+.PrivateTabIndicator-colorSecondary-9 {
   background-color: #9f2bc1 !important;
 }
