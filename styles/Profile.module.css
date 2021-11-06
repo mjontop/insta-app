@@ -3,10 +3,11 @@
   flex: 1;
   width: 100%;
 }
-.posts {
-  flex: 10;
-  width: 100%;
+
+.main {
+  max-width: max(40%, 400px);
 }
+
 .new_posts {
   flex: 10;
   display: flex;

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import getUsersEmail, {
   getFollowingStatus,
   getUsersConnections,
+  getUsersPost,
 } from "./helper/ProfileHelper";
 import style from "../../styles/Profile.module.css";
 import NOTFOUND from "../NotFound";
@@ -14,6 +15,7 @@ import { getFollowings, toggleFollowers } from "./helper/ConnctionsListhelper";
 import { Button, Tab, Tabs, Box } from "@material-ui/core";
 import { ArrowForwardIosRounded } from "@material-ui/icons";
 import { useRouter } from "next/dist/client/router";
+import AllPosts from "../Post/AllPosts";
 
 const Profile = ({ username }) => {
   const [userData, setUserData] = useState({ data: {}, isLoading: false });
@@ -28,6 +30,7 @@ const Profile = ({ username }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [followersList, setFollowersList] = useState([]);
   const [currentTab, setCurrentTab] = useState(0);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -122,7 +125,7 @@ const Profile = ({ username }) => {
   }
 
   return (
-    <main className="main">
+    <main className={`main ${style.main}`}>
       <div className={style.header}>
         <div className={style.profilePic}>
           <div className="centered-div">
@@ -232,12 +235,7 @@ const Profile = ({ username }) => {
           </Tabs>
         </Box>
       </div>
-      {currentTab === 0 && (
-        <div className={`${style.posts} row`}>
-          <div className="col-12 col-md-4"></div>
-          <div className="col-12 col-md-4"></div>
-        </div>
-      )}
+      {currentTab === 0 && <AllPosts email={userData.data.email} />}
       {currentTab === 1 && (
         <div className={style.new_posts}>
           <Button

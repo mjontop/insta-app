@@ -12,4 +12,28 @@ const createNewPost = async (body) => {
   }
 };
 
+export const getUsersPost = async (email) => {
+  try {
+    const { data } = await Axios.post("/post/all", {
+      email,
+    });
+    if (!data.error) {
+      return {
+        error: false,
+        data: data.posts,
+      };
+    }
+    return {
+      error: true,
+      data: [],
+    };
+  } catch (ex) {
+    console.log("Error in getting Posts");
+    return {
+      error: true,
+      data: [],
+    };
+  }
+};
+
 export default createNewPost;
