@@ -2,16 +2,41 @@ import React, { useState } from "react";
 import { BackupRounded, ClearRounded } from "@material-ui/icons";
 import { Button, Input } from "@material-ui/core";
 import style from "../../styles/CreatePost.module.css";
+import createNewPost from "./helper";
+import Loader from "../Loader";
 const CreatePost = ({ profilePic }) => {
   const [imageUploaded, setImgUploaded] = useState(null);
   const [caption, setCaption] = useState("");
+  const [imageBase64, setImageBase64] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const handleImageUpload = (e) => {
     console.log(Array.from(e.target.files));
-    setImgUploaded(URL.createObjectURL(event.target.files[0]));
+    const file = e.target.files[0];
+    setImgUploaded(URL.createObjectURL(file));
+    let base64String = "";
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      base64String = reader.result.replace("data:", "").replace(/^.+,/, "");
+      setImageBase64(base64String);
+    };
   };
 
   const handleCaptionChange = (e) => {
     setCaption(e.target.value);
+  };
+
+  const handleCreatePost = () => {
+    const body = {
+      imageBase64,
+      captions: caption,
+    };
+    setIsLoading(true);
+    createNewPost(body).then((data) => {
+      if (!data.error) {
+      }
+      setIsLoading(false);
+    });
   };
 
   return (
@@ -74,14 +99,19 @@ const CreatePost = ({ profilePic }) => {
                 onChange={handleCaptionChange}
               />
               <span>{caption.length}/120</span>
-              <Button
-                variant="contained"
-                component="span"
-                className="btn"
-                size="large"
-              >
-                Share
-              </Button>
+              {!isLoading ? (
+                <Button
+                  variant="contained"
+                  component="span"
+                  className="btn"
+                  size="large"
+                  onClick={handleCreatePost}
+                >
+                  Share
+                </Button>
+              ) : (
+                <Loader />
+              )}
             </div>
           </div>
         )}
