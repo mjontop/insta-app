@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getUsersPost } from "./helper";
 import Loader from "../Loader";
-const AllPosts = ({ email }) => {
+import style from "../../styles/AllPosts.module.css";
+
+const AllPosts = ({ email, postCountUpdater }) => {
   const [posts, setPosts] = useState({
     hasLoaded: false,
     data: [],
@@ -13,6 +15,8 @@ const AllPosts = ({ email }) => {
           hasLoaded: true,
           data,
         });
+        sessionStorage.setItem("allPosts", JSON.stringify(data));
+        postCountUpdater(data.length);
         return;
       }
       setPosts({
@@ -23,41 +27,34 @@ const AllPosts = ({ email }) => {
   };
 
   useEffect(() => {
-    if (email) handleUsersPosts(email);
+    const allPosts = JSON.parse(sessionStorage.getItem("allPosts"));
+    if (allPosts) {
+      setPosts({
+        hasLoaded: true,
+        data: allPosts,
+      });
+      postCountUpdater(allPosts.length);
+      return;
+    }
+    if (email && !allPosts) handleUsersPosts(email);
   }, [email]);
 
   return (
-    <div
-      style={{
-        flex: "10",
-        width: "100%",
-        paddingTop: "2rem",
-      }}
-      className="row"
-    >
+    <div className={`row ${style.container}`}>
       {posts.hasLoaded ? (
         <>
           {posts.data.map((post, index) => (
             <div
               key={index}
-              className="col-12 col-md-4"
-              style={{ maxHeight: "300px" }}
-            >
-              <img
-                src={`data:image/png;base64,${post.imageBase64}`}
-                className="w-100 img-fluid"
-              />
-            </div>
+              className={`col-12 col-md-4 ${style.imgs}`}
+              style={{
+                backgroundImage: `url('data:image/png;base64,${post.imageBase64}')`,
+              }}
+            ></div>
           ))}
         </>
       ) : (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <div className={style.loader}>
           <Loader />
         </div>
       )}

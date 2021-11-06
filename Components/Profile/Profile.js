@@ -30,11 +30,13 @@ const Profile = ({ username }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [followersList, setFollowersList] = useState([]);
   const [currentTab, setCurrentTab] = useState(0);
-
+  const [postsCount, setPostCount] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
     if (!!username) {
+      sessionStorage.removeItem("allPosts");
+      setCurrentTab(0);
       setIsSameUser(getUserInfo().user.username === username);
       setUserData({ ...userData, isLoading: true });
       setUserConnections({ ...userConnections, isLoading: true });
@@ -181,7 +183,7 @@ const Profile = ({ username }) => {
           </div>
           <div className={style.stats_row}>
             <div className="px-2">
-              <b>0</b> posts
+              <b>{postsCount}</b> posts
             </div>
             <div className="px-4 cursor-ptr">
               <ConnetionsList
@@ -215,27 +217,33 @@ const Profile = ({ username }) => {
           </div>
         </div>
       </div>
-      <div style={{ flex: "0.1" }}>
-        <Box
-          style={{
-            outline: "none !important",
-            borderBottom: "2px solid gray",
-            display: "flex",
-            justifyContent: "center",
-            width: "100%",
-          }}
-        >
-          <Tabs
-            value={currentTab}
-            onChange={(e, val) => setCurrentTab(val)}
-            aria-label="basic tabs example"
+      {isSameUser ? (
+        <div style={{ flex: "0.1" }}>
+          <Box
+            style={{
+              outline: "none !important",
+              borderBottom: "2px solid gray",
+              display: "flex",
+              justifyContent: "center",
+              width: "100%",
+            }}
           >
-            <Tab label="All Posts" />
-            <Tab label="Create A Post" />
-          </Tabs>
-        </Box>
-      </div>
-      {currentTab === 0 && <AllPosts email={userData.data.email} />}
+            <Tabs
+              value={currentTab}
+              onChange={(e, val) => setCurrentTab(val)}
+              aria-label="basic tabs example"
+            >
+              <Tab label="All Posts" />
+              <Tab label="Create A Post" />
+            </Tabs>
+          </Box>
+        </div>
+      ) : (
+        <hr />
+      )}
+      {currentTab === 0 && (
+        <AllPosts email={userData.data.email} postCountUpdater={setPostCount} />
+      )}
       {currentTab === 1 && (
         <div className={style.new_posts}>
           <Button
