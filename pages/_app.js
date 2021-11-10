@@ -6,7 +6,6 @@ import Axios from "../utils/Axios";
 import FullPageLoader from "../Components/FullPageLoader";
 function MyApp({ Component, pageProps }) {
   const [profilePic, setProfilePic] = useState("");
-  const [hasLoaded, setHasLoaded] = useState(false);
   const loadUser = async () => {
     const userInfo = getUserInfo();
     if (userInfo.isLoggedIn) {
@@ -14,16 +13,13 @@ function MyApp({ Component, pageProps }) {
         `/user/getEmailfromUsername/${userInfo.user.username}`
       );
       setProfilePic(data.imageBase64);
-      setHasLoaded(true);
     }
   };
 
   useEffect(() => {
     loadUser();
   }, []);
-  if (!hasLoaded) {
-    return <FullPageLoader />;
-  }
+
   return (
     <>
       <link
