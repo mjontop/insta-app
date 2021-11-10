@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getUsersPost } from "./helper";
 import Loader from "../Loader";
 import style from "../../styles/AllPosts.module.css";
-
+import Link from "next/link";
 const AllPosts = ({ email, postCountUpdater }) => {
   const [posts, setPosts] = useState({
     hasLoaded: false,
@@ -44,13 +44,15 @@ const AllPosts = ({ email, postCountUpdater }) => {
       {posts.hasLoaded ? (
         <>
           {posts.data.map((post, index) => (
-            <div
-              key={index}
-              className={`col-12 col-md-4 ${style.imgs}`}
-              style={{
-                backgroundImage: `url('data:image/png;base64,${post.imageBase64}')`,
-              }}
-            ></div>
+            <div key={index} className={`col-12 col-md-4 ${style.imgs}`}>
+              <Link href={`/posts/${post._id}`}>
+                <div
+                  style={{
+                    backgroundImage: `url('data:image/png;base64,${post.imageBase64}')`,
+                  }}
+                ></div>
+              </Link>
+            </div>
           ))}
         </>
       ) : (
