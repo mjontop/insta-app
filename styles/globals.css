@@ -31,10 +31,10 @@ hr {
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 55px);
-  min-width: max(40%, 750px);
+  min-width: max(40%, 350px) !important;
 }
 
-@media screen and (max-width: 1080px) {
+@media screen and (max-width: 1480px) {
   .main {
     width: 60%;
   }
@@ -45,11 +45,11 @@ hr {
     width: 80%;
   }
 }
-@media screen and (max-width: 550px) {
+/* @media screen and (max-width: 550px) {
   .main {
     width: 100%;
   }
-}
+} */
 
 #__next {
   display: flex;

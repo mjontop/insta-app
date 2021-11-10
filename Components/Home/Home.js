@@ -13,7 +13,7 @@ const Home = () => {
   };
   return (
     <div
-      className="d-flex flex-column"
+      className="d-flex flex-column mt-2"
       style={{ width: "100%", height: "100%" }}
     >
       <h2 className="text-purple">
@@ -21,7 +21,10 @@ const Home = () => {
       </h2>
       {photos.map((photo) => (
         <div className="py-4">
-          <Posts imgSrc={photo.src.large} />
+          <Posts
+            imgSrc={photo.src.large}
+            username={photo.photographer_url.split("@")[1]}
+          />
         </div>
       ))}
     </div>

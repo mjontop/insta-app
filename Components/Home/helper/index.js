@@ -1,7 +1,11 @@
 const getPhotosFromPexel = async () => {
+  let orientation = "landscape";
   try {
+    if (window.innerHeight > window.innerWidth) {
+      orientation = "portrait";
+    }
     const res = await fetch(
-      "https://api.pexels.com/v1/search?query=people&orientation=landscape",
+      `https://api.pexels.com/v1/search?query=people&orientation=${orientation}`,
       {
         headers: {
           Authorization:
