@@ -22,3 +22,7 @@
   cursor: pointer;
   font-weight: bold;
 }
+.postImg {
+  height: 100%;
+  width: 100%;
+}
