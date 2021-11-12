@@ -5,7 +5,7 @@ const getPhotosFromPexel = async () => {
       orientation = "portrait";
     }
     const res = await fetch(
-      `https://api.pexels.com/v1/search?query=guitar&orientation=${orientation}`,
+      `https://api.pexels.com/v1/search?query=travel&orientation=${orientation}`,
       {
         headers: {
           Authorization:

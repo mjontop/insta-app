@@ -3,7 +3,7 @@ import getUserInfo from "../Components/auth";
 import Navbar from "../Components/Navbar";
 import "../styles/globals.css";
 import Axios from "../utils/Axios";
-import FullPageLoader from "../Components/FullPageLoader";
+
 function MyApp({ Component, pageProps }) {
   const [profilePic, setProfilePic] = useState("");
   const loadUser = async () => {
