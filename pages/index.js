@@ -5,7 +5,7 @@ export default function Homepage() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Gram Clone</title>
+        <title>InstaApp</title>
       </Head>
       <main className="main">
         <Home />
