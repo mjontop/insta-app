@@ -9,10 +9,15 @@ function MyApp({ Component, pageProps }) {
   const loadUser = async () => {
     const userInfo = getUserInfo();
     if (userInfo.isLoggedIn) {
-      const { data } = await Axios.get(
-        `/user/getEmailfromUsername/${userInfo.user.username}`
-      );
-      setProfilePic(data.imageBase64);
+      try {
+        const { data } = await Axios.get(
+          `/user/getEmailfromUsername/${userInfo.user.username}`
+        );
+        setProfilePic(data.imageBase64);
+      } catch (ex) {
+        console.log("Error in getting Profile", ex);
+        setProfilePic('');
+      }
     }
   };
 
