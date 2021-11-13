@@ -4,11 +4,14 @@ import { Button, Input } from "@material-ui/core";
 import style from "../../styles/CreatePost.module.css";
 import createNewPost from "./helper";
 import Loader from "../Loader";
+import { useRouter } from "next/router";
 const CreatePost = ({ profilePic }) => {
   const [imageUploaded, setImgUploaded] = useState(null);
   const [caption, setCaption] = useState("");
   const [imageBase64, setImageBase64] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
   const handleImageUpload = (e) => {
     console.log(Array.from(e.target.files));
     const file = e.target.files[0];
@@ -34,6 +37,7 @@ const CreatePost = ({ profilePic }) => {
     setIsLoading(true);
     createNewPost(body).then((data) => {
       if (!data.error) {
+        router.push(`/posts/${data.postId}`);
       }
       setIsLoading(false);
     });
