@@ -35,6 +35,8 @@ const Post = () => {
         <Posts
           imgSrc={`data:image/png;base64,${post.imageBase64}`}
           username={author.username}
+          profilePic={author.imageBase64}
+          captions={post.captions}
         />
       ) : (
         <Loader />
