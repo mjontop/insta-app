@@ -23,8 +23,8 @@ const Home = () => {
       <h2 className="text-purple">
         <strong>Explore Posts</strong>
       </h2>
-      {photos.map((photo) => (
-        <div className="py-4">
+      {photos.map((photo, index) => (
+        <div className="py-4" key={index}>
           <Posts
             imgSrc={photo.src.large}
             username={photo.photographer_url.split("@")[1]}

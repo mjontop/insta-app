@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import style from "../../styles/Post.module.css";
 import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded";
-import { useRouter } from "next/router";
 import getUserInfo from "../auth";
 import EditPopover from "./helper/EditPopover";
-import { deletePost } from "./helper";
+import { useRouter } from "next/dist/client/router";
 
 const Posts = ({ imgSrc, username, profilePic, captions, id }) => {
   const [userInfo, setUserInfo] = useState({ isLoggedIn: false });
