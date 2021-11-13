@@ -3,10 +3,12 @@ import { useRouter } from "next/dist/client/router";
 import Posts from "../../Components/Post/Posts";
 import Loader from "../../Components/Loader";
 import getPost, { getUserFromEmail } from "./helper";
+import NOTFOUND from "../../Components/NotFound";
 const Post = () => {
   const [post, setPost] = useState({});
-  const [author, setAuthor] = useState({ p: "y" });
+  const [author, setAuthor] = useState({});
   const [isLoading, setLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const router = useRouter();
   const postId = router.query.postId;
   useEffect(() => {
@@ -17,10 +19,12 @@ const Post = () => {
   const handleGetPost = async () => {
     setLoading(true);
     const { data, error } = await getPost(postId);
-    if (!error) {
-      setPost(data);
-      await getUsersDetails(data.postedBy);
+    if (error) {
+      setHasError(true);
+      return;
     }
+    setPost(data);
+    await getUsersDetails(data.postedBy);
     setLoading(false);
   };
 
@@ -28,6 +32,10 @@ const Post = () => {
     const data = await getUserFromEmail(email);
     setAuthor(data);
   };
+
+  if (hasError) {
+    return <NOTFOUND message={`Oops! Looks Like Post isn't Available`} />;
+  }
 
   return (
     <main className="main">

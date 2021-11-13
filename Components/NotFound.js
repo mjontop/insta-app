@@ -1,7 +1,7 @@
 import React from "react";
 import notfound from "../assets/NOTFOUND.svg";
 
-const NOTFOUND = () => {
+const NOTFOUND = ({ message = "" }) => {
   return (
     <>
       <div className="centered-div">
@@ -10,7 +10,9 @@ const NOTFOUND = () => {
             style={{ height: "50vmin", margin: "5rem 0" }}
             src={notfound.src}
           />
-          <p className="display-6">Oops! Looks Like Page isn't Available</p>
+          <p className="display-6">
+            {message !== "" ? message : `Oops! Looks Like Page isn't Available`}
+          </p>
         </div>
       </div>
     </>
