@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
     if (userInfo.isLoggedIn) {
       try {
         const { data } = await Axios.get(
-          `/user/getEmailfromUsername/${userInfo.user.username}`
+          `/user/getUserFromUsername/${userInfo.user.username}`
         );
         setProfilePic(data.imageBase64);
       } catch (ex) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import getUsersEmail, {
+import getUsersFromUsername, {
   getFollowingStatus,
   getUsersConnections,
   getUsersPost,
@@ -40,7 +40,7 @@ const Profile = ({ username }) => {
       setIsSameUser(getUserInfo().user.username === username);
       setUserData({ ...userData, isLoading: true });
       setUserConnections({ ...userConnections, isLoading: true });
-      getUsersEmail(username).then(({ error, ...data }) => {
+      getUsersFromUsername(username).then(({ error, ...data }) => {
         if (!error) {
           setUserData({ data, isLoading: false });
           getUsersConnections(data.email).then((data) => {

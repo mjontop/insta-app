@@ -1,8 +1,8 @@
 import Axios from "../../../utils/Axios";
 
-const getUsersEmail = async (username) => {
+const getUsersFromUsername = async (username) => {
   try {
-    const { data } = await Axios.get(`/user/getEmailfromUsername/${username}`);
+    const { data } = await Axios.get(`/user/getUserFromUsername/${username}`);
     return data;
   } catch (ex) {
     console.log("Error in Getting email");
@@ -57,4 +57,4 @@ export const getFollowingStatus = async (username) => {
   }
 };
 
-export default getUsersEmail;
+export default getUsersFromUsername;
