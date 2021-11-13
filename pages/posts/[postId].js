@@ -37,6 +37,7 @@ const Post = () => {
           username={author.username}
           profilePic={author.imageBase64}
           captions={post.captions}
+          id={post._id}
         />
       ) : (
         <Loader />

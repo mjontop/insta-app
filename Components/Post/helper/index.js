@@ -12,6 +12,15 @@ const createNewPost = async (body) => {
   }
 };
 
+export const deletePost = async (postId) => {
+  try {
+    const { data } = await Axios.post(`post/deletePost/${postId}`);
+    console.log("data", data);
+  } catch (ex) {
+    console.log("Cannot Delete Post", ex);
+  }
+};
+
 export const getUsersPost = async (email) => {
   try {
     const { data } = await Axios.post("/post/all", {
