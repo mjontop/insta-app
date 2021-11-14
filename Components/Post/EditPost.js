@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
 import style from "../../styles/CreatePost.module.css";
-import createNewPost from "./helper";
+import createNewPost, { updatePost } from "./helper";
 import Loader from "../Loader";
 import { useRouter } from "next/router";
-const EditPost = ({ profilePic, image, captions }) => {
+const EditPost = ({ profilePic, image, captions, postId }) => {
   const [caption, setCaption] = useState("");
   const [imageBase64, setImageBase64] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,15 +19,11 @@ const EditPost = ({ profilePic, image, captions }) => {
     setCaption(e.target.value);
   };
 
-  const handleCreatePost = () => {
-    const body = {
-      imageBase64,
-      captions: caption,
-    };
+  const handleEditPost = () => {
     setIsLoading(true);
-    createNewPost(body).then((data) => {
+    updatePost(caption, postId).then((data) => {
       if (!data.error) {
-        router.push(`/posts/${data.postId}`);
+        router.push(`/posts/${postId}`);
       }
       setIsLoading(false);
     });
@@ -72,7 +68,7 @@ const EditPost = ({ profilePic, image, captions }) => {
                 component="span"
                 className="btn"
                 size="large"
-                onClick={handleCreatePost}
+                onClick={handleEditPost}
               >
                 Share
               </Button>

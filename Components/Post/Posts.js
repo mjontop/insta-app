@@ -39,6 +39,7 @@ const Posts = ({ imgSrc, username, profilePic, captions, id }) => {
             onClick={() => deletePost(id)}
             image={imgSrc}
             captions={captions}
+            postId={id}
           />
         )}
       </div>

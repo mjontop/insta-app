@@ -12,6 +12,21 @@ const createNewPost = async (body) => {
   }
 };
 
+export const updatePost = async (caption, postId) => {
+  try {
+    const { data } = await Axios.post(`post/update/${postId}`, {
+      captions: caption,
+    });
+    return data;
+  } catch (ex) {
+    console.log("Cannot Update Post", ex);
+    return {
+      error: true,
+      message: null,
+    };
+  }
+};
+
 export const deletePost = async (postId) => {
   try {
     const { data } = await Axios.post(`post/deletePost/${postId}`);

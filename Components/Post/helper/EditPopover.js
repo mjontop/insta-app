@@ -5,7 +5,7 @@ import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
 import Link from "next/link";
 import DeletePopup from "../DeletePopup";
 
-export default function EditPopover({ image, captions }) {
+export default function EditPopover({ image, captions, postId }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -40,7 +40,7 @@ export default function EditPopover({ image, captions }) {
           <Link
             href={{
               pathname: "/posts/edit/",
-              query: { image, captions },
+              query: { image, captions, postId },
             }}
           >
             <span className="px-3 p-1 hoverEffect">Edit Post</span>

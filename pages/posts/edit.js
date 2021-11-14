@@ -6,7 +6,15 @@ const EditPostpage = ({ profilePic }) => {
   const router = useRouter();
   const image = router.query.image;
   const captions = router.query.captions;
-  return <EditPost profilePic={profilePic} image={image} captions={captions} />;
+  const postId = router.query.postId;
+  return (
+    <EditPost
+      profilePic={profilePic}
+      image={image}
+      captions={captions}
+      postId={postId}
+    />
+  );
 };
 
 export default EditPostpage;
