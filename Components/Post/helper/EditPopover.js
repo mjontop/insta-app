@@ -5,7 +5,7 @@ import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
 import Link from "next/link";
 import DeletePopup from "../DeletePopup";
 
-export default function EditPopover({ username }) {
+export default function EditPopover({ image, captions }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -37,7 +37,12 @@ export default function EditPopover({ username }) {
         }}
       >
         <div className="d-flex cursor-ptr flex-column">
-          <Link href={`/${username}/editProfile/`}>
+          <Link
+            href={{
+              pathname: "/posts/edit/",
+              query: { image, captions },
+            }}
+          >
             <span className="px-3 p-1 hoverEffect">Edit Post</span>
           </Link>
           <DeletePopup>

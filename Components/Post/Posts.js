@@ -35,7 +35,11 @@ const Posts = ({ imgSrc, username, profilePic, captions, id }) => {
           </div>
         </div>
         {userInfo.isLoggedIn && profilePic && (
-          <EditPopover onClick={() => deletePost(id)} />
+          <EditPopover
+            onClick={() => deletePost(id)}
+            image={imgSrc}
+            captions={captions}
+          />
         )}
       </div>
 

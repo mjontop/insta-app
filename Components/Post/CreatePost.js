@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BackupRounded, ClearRounded } from "@material-ui/icons";
 import { Button, Input } from "@material-ui/core";
 import style from "../../styles/CreatePost.module.css";
