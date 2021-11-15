@@ -148,3 +148,6 @@ button:focus {
   .MuiOutlinedInput-notchedOutline {
   border: 2px solid #9f2bc1;
 }
+.PrivateNotchedOutline-root-1 {
+  top: 0 !important;
+}
