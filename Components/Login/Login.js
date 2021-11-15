@@ -6,6 +6,7 @@ import style from "../../styles/SignIn.module.css";
 import Loader from "../Loader";
 import loginHelper from "./loginHelper";
 import parseJwt from "../../utils/validateJWT";
+import Link from "next/link";
 
 const SignIn = () => {
   const router = useRouter();
@@ -95,6 +96,13 @@ const SignIn = () => {
             ) : (
               <Loader />
             )}
+          </div>
+          <hr />
+          <div className={style.footer}>
+            <span>Not Registered Yet?</span>
+            <Link href="/accounts/register">
+              <span className={`${style.footer_btn} btn`}>Register</span>
+            </Link>
           </div>
         </div>
       </div>

@@ -9,6 +9,7 @@ import registerHelper, {
   validateUsername,
 } from "./registerHelper";
 import parseJwt from "../../utils/validateJWT";
+import Link from "next/link";
 
 const Register = () => {
   const router = useRouter();
@@ -133,6 +134,13 @@ const Register = () => {
             ) : (
               <Loader />
             )}
+          </div>
+          <hr />
+          <div className={style.footer}>
+            <span>Already Registered ?</span>
+            <Link href="/accounts/login">
+              <span className={`${style.footer_btn} btn`}>Login</span>
+            </Link>
           </div>
         </div>
       </div>
