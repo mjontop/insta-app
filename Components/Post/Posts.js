@@ -12,6 +12,16 @@ const Posts = ({ imgSrc, username, profilePic, captions, id }) => {
   useEffect(() => {
     setUserInfo(getUserInfo());
   }, []);
+
+  const handleLiked = (flag = false) => {
+    if (!userInfo.isLoggedIn) return;
+    if (!flag) {
+      setLiked((prev) => !prev);
+      return;
+    }
+    setLiked(true);
+  };
+
   const router = useRouter();
   return (
     <div className={style.body}>
@@ -46,10 +56,10 @@ const Posts = ({ imgSrc, username, profilePic, captions, id }) => {
         )}
       </div>
 
-      <div className={style.post} onDoubleClick={() => setLiked(true)}>
+      <div className={style.post} onDoubleClick={() => handleLiked(true)}>
         <img className={style.postImg} src={imgSrc} />
       </div>
-      <div className={style.user} onClick={() => setLiked((prev) => !prev)}>
+      <div className={style.user} onClick={handleLiked}>
         {!liked ? (
           <FavoriteBorderRoundedIcon />
         ) : (
