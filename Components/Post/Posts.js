@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import style from "../../styles/Post.module.css";
 import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded";
+import FavoriteRoundedIcon from "@material-ui/icons/FavoriteRounded";
 import getUserInfo from "../auth";
 import EditPopover from "./helper/EditPopover";
 import { useRouter } from "next/dist/client/router";
 
 const Posts = ({ imgSrc, username, profilePic, captions, id }) => {
   const [userInfo, setUserInfo] = useState({ isLoggedIn: false });
+  const [liked, setLiked] = useState(false);
   useEffect(() => {
     setUserInfo(getUserInfo());
   }, []);
@@ -44,11 +46,15 @@ const Posts = ({ imgSrc, username, profilePic, captions, id }) => {
         )}
       </div>
 
-      <div className={style.post}>
+      <div className={style.post} onDoubleClick={() => setLiked(true)}>
         <img className={style.postImg} src={imgSrc} />
       </div>
-      <div className={style.user}>
-        <FavoriteBorderRoundedIcon />
+      <div className={style.user} onClick={() => setLiked((prev) => !prev)}>
+        {!liked ? (
+          <FavoriteBorderRoundedIcon />
+        ) : (
+          <FavoriteRoundedIcon className="text-purple" />
+        )}
       </div>
       {captions && (
         <div className="px-3 d-flex">
