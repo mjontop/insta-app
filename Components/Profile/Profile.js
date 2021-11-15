@@ -127,7 +127,7 @@ const Profile = ({ username }) => {
   }
 
   return (
-    <main className={`main ${style.main}`}>
+    <main className={`main`}>
       <div className={style.header}>
         <div className={style.profilePic}>
           <div className="centered-div">

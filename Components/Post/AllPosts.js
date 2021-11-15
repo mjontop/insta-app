@@ -49,6 +49,7 @@ const AllPosts = ({ email, postCountUpdater }) => {
                 <div
                   style={{
                     backgroundImage: `url('data:image/png;base64,${post.imageBase64}')`,
+                    backgroundPosition: "center",
                   }}
                 ></div>
               </Link>
