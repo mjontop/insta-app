@@ -30,6 +30,7 @@ const DisplayList = ({
   followersList,
   handleToggleFollow,
   isLoading,
+  index,
 }) => {
   const follows = followersList.includes(name);
   return (
@@ -54,7 +55,10 @@ const DisplayList = ({
         {currentUser !== name && (
           <>
             {!follows ? (
-              <button className="btn" onClick={() => handleToggleFollow(name)}>
+              <button
+                className="btn"
+                onClick={() => handleToggleFollow(name, index)}
+              >
                 follow
                 {isLoading && (
                   <div
@@ -66,7 +70,7 @@ const DisplayList = ({
             ) : (
               <Button
                 variant="outlined"
-                onClick={() => handleToggleFollow(name)}
+                onClick={() => handleToggleFollow(name, index)}
               >
                 Following
                 {isLoading && (
@@ -94,6 +98,7 @@ export default function ConnetionsList({
 }) {
   const [isLoadingList, setIsLoadingList] = useState(false);
   const [open, setOpen] = useState(false);
+  const [loaders, setLoaders] = useState([]);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     if (followingUpdated) {
@@ -104,7 +109,6 @@ export default function ConnetionsList({
   };
   const [connetionsList, setConnectionsList] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [followersListState, setFollowersListState] = useState([
     ...followersList,
   ]);
@@ -125,18 +129,22 @@ export default function ConnetionsList({
       const { data, error } = await getFollowers(email);
       setConnectionsList(data);
       if (data.length === 0) setIsListEmpty(true);
+      setLoaders(new Array(data.length).fill(false));
       setIsLoadingList(false);
       return;
     }
     const { data, error } = await getFollowings(email);
     setConnectionsList(data);
     if (data.length === 0) setIsListEmpty(true);
+    setLoaders(new Array(data.length).fill(false));
     setIsLoadingList(false);
     return;
   };
 
-  const handleToggleFollow = async (username) => {
-    setIsLoading(true);
+  const handleToggleFollow = async (username, index) => {
+    let tempLoaders = [...loaders];
+    tempLoaders[index] = true;
+    setLoaders([...tempLoaders]);
     const { error, message } = await toggleFollowers(username);
     if (!error) {
       if (message === "Followed") {
@@ -148,7 +156,9 @@ export default function ConnetionsList({
         );
       }
     }
-    setIsLoading(false);
+    tempLoaders = [...loaders];
+    tempLoaders[index] = false;
+    setLoaders([...tempLoaders]);
   };
 
   return (
@@ -207,8 +217,9 @@ export default function ConnetionsList({
                         name={user}
                         currentUser={currentUser}
                         followersList={followersListState}
-                        isLoading={isLoading}
+                        isLoading={loaders[index]}
                         handleToggleFollow={handleToggleFollow}
+                        index={index}
                       />
                     ))}
                   </div>
