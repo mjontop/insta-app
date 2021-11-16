@@ -4,6 +4,7 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
 import Link from "next/link";
 import DeletePopup from "../DeletePopup";
+import EditIcon from "@material-ui/icons/Edit";
 
 export default function EditPopover({ image, captions, postId }) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -43,12 +44,15 @@ export default function EditPopover({ image, captions, postId }) {
               query: { image, captions, postId },
             }}
           >
-            <span className="px-3 p-1 hoverEffect">Edit Post</span>
+            <div className="d-flex align-items-center px-3 hoverEffect">
+              <EditIcon />
+              <span className="p-1">Edit Post</span>
+            </div>
           </Link>
           <DeletePopup>
-            <div className="px-3 p-1 d-flex justify-content-between mt-1 hoverEffect">
+            <div className="px-3 d-flex align-items-center justify-content-between mt-1 hoverEffect">
               <DeleteOutlineRoundedIcon />
-              <div className="mx-3">Delete Post</div>
+              <div className="p-1">Delete Post</div>
             </div>
           </DeletePopup>
         </div>
