@@ -5,6 +5,7 @@
   flex-direction: column;
   border: 1px solid #dbdbdb;
   border-radius: 0.4rem;
+  box-shadow: 0 0 20px #4c4b4b;
 }
 
 .post {

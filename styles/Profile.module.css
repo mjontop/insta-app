@@ -28,6 +28,10 @@
   align-items: center;
 }
 
+.profilePic > div > img {
+  box-shadow: 0 0 10px #383838;
+}
+
 .userStats {
   flex: 1.5;
   display: flex;
