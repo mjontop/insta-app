@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/dist/client/router";
 import Posts from "../../Components/Post/Posts";
 import Loader from "../../Components/Loader";
-import getPost, { getUserFromEmail } from "./helper";
+import getPost, { getUserFromEmail } from "../../Components/Post/helper/getPost";
 import NOTFOUND from "../../Components/NotFound";
 const Post = () => {
   const [post, setPost] = useState({});
