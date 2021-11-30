@@ -12,6 +12,10 @@ This is a clone of the Instagram App with its basic features such as follow:-
  - Delete Post
 
 
+# `Live  App`
+ - [InstaApp](https://theinstaapp.vercel.app/)
+
+
 ## Run Locally
 
 Clone the project
