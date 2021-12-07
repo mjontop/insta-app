@@ -32,3 +32,10 @@
   text-align: center;
 }
 
+.home_icon {
+  color: #272525;
+  cursor: pointer;
+}
+.home_icon:hover {
+  color: #9f2bc1;
+}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import getUserInfo from "../Components/auth";
-import Navbar from "../Components/Navbar";
 import "../styles/globals.css";
+import Navbar from "../Components/Navbar";
 import Axios from "../utils/Axios";
 
 function MyApp({ Component, pageProps }) {
@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }) {
         setProfilePic(data.imageBase64);
       } catch (ex) {
         console.log("Error in getting Profile", ex);
-        setProfilePic('');
+        setProfilePic("");
       }
     }
   };

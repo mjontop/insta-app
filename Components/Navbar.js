@@ -8,6 +8,7 @@ import Axios from "../utils/Axios";
 import { TextField } from "@material-ui/core";
 import { useRouter } from "next/dist/client/router";
 import logo from "../assets/logo.svg";
+import { HomeRounded } from "@material-ui/icons";
 const Navbar = ({ profilePic }) => {
   const [showShadow, setShowShadow] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -73,8 +74,9 @@ const Navbar = ({ profilePic }) => {
         >
           <div className={navbar.main}>
             <Link href="/">
-              <div className="cursor-ptr">
-                <img src={logo.src} width="150" />
+              <div className={navbar.home_icon}>
+                {/* <img src={logo.src} width="150" /> */}
+                <HomeRounded fontSize="large" />
               </div>
             </Link>
             <div style={{ width: "30%" }}>
