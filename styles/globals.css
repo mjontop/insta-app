@@ -139,7 +139,10 @@ hr {
 button:focus {
   outline: none !important;
 }
-.PrivateTabIndicator-colorSecondary-9 {
+.PrivateTabIndicator-colorSecondary-9,
+.jss6,
+.jss8,
+.MuiTabs-indicator {
   background-color: #9f2bc1 !important;
 }
 
