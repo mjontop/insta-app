@@ -13,7 +13,8 @@ This is a clone of the Instagram App with its basic features such as follow:-
 
 
 # `Live  App`
- - [InstaApp](https://theinstaapp.vercel.app/)
+
+[![InstaApp](https://img.shields.io/badge/%F0%9F%9A%80_InstaApp_-000?style=for-the-badge&logo=fire&logoColor=white)](https://theinstaapp.vercel.app/)
 
 
 ## Run Locally
@@ -51,7 +52,7 @@ Start the server
 
 **Server:** Node, Express, MongoDB
 
-[Here is the Link of server  Repo](https://github.com/mjontop/insta-app-backend)
+  [![Server Repo Link](https://img.shields.io/badge/Server_Repo_Link-000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/mjontop/insta-app-backend)
 
 
 ## Author
